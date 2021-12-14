@@ -1,8 +1,8 @@
 ﻿DROP TABLE IF EXISTS `USER`;
 
 CREATE TABLE `USER` (
-	`user_uid`	int	NOT NULL,
-	`user_id`	varchar(50)	NOT NULL,
+	`user_id`	int	NOT NULL,
+	`user_email`	varchar(50)	NOT NULL,
 	`user_pw`	varchar(15)	NOT NULL,
 	`user_nickname`	varchar(50)	NOT NULL,
 	`user_gender`	bool	NOT NULL,
@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `coment`;
 
 CREATE TABLE `coment` (
 	`coment_id`	int	NOT NULL,
-	`coment_uid_to`	int	NOT NULL,
-	`coment_uid_from`	int	NOT NULL,
+	`coment_id_to`	int	NOT NULL,
+	`coment_id_from`	int	NOT NULL,
 	`coment_contents`	varchar(500)	NOT NULL,
 	`coment_time`	timestamp	NOT NULL,
 	`coment_access`	bool	NOT NULL,
@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `cocoment`;
 CREATE TABLE `cocoment` (
 	`cocoment_id`	int	NOT NULL,
 	`coment_id`	int	NOT NULL,
-	`cocoment_uid_from`	int	NOT NULL,
+	`cocoment_id_from`	int	NOT NULL,
 	`cocoment_contents`	varchar(500)	NOT NULL,
 	`cocoment_time`	timestamp	NOT NULL,
 	`cocoment_status`	tinyint	NOT NULL	DEFAULT 1
@@ -46,7 +46,7 @@ CREATE TABLE `cocoment` (
 DROP TABLE IF EXISTS `user_character`;
 
 CREATE TABLE `user_character` (
-	`user_uid`	int	NOT NULL,
+	`user_id`	int	NOT NULL,
 	`cleanliness`	tinyint	NOT NULL,
 	`wakeup_time`	tinyint	NOT NULL,
 	`sleep_time`	tinyint	NOT NULL,
@@ -60,12 +60,12 @@ DROP TABLE IF EXISTS `intro_image`;
 
 CREATE TABLE `intro_image` (
 	`image_id`	int	NOT NULL,
-	`user_uid`	int	NOT NULL,
+	`user_id`	int	NOT NULL,
 	`image_address`	varchar(255)	NOT NULL
 );
 
 ALTER TABLE `USER` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
-	`user_uid`
+	`user_id`
 );
 
 ALTER TABLE `coment` ADD CONSTRAINT `PK_COMENT` PRIMARY KEY (
@@ -77,52 +77,17 @@ ALTER TABLE `cocoment` ADD CONSTRAINT `PK_COCOMENT` PRIMARY KEY (
 );
 
 ALTER TABLE `user_character` ADD CONSTRAINT `PK_USER_CHARACTER` PRIMARY KEY (
-	`user_uid`
+	`user_id`
 );
 
 ALTER TABLE `intro_image` ADD CONSTRAINT `PK_INTRO_IMAGE` PRIMARY KEY (
 	`image_id`
 );
 
-ALTER TABLE `coment` ADD CONSTRAINT `FK_USER_TO_coment_1` FOREIGN KEY (
-	`coment_uid_to`
-)
-REFERENCES `USER` (
-	`user_uid`
-);
-
-ALTER TABLE `coment` ADD CONSTRAINT `FK_USER_TO_coment_2` FOREIGN KEY (
-	`coment_uid_from`
-)
-REFERENCES `USER` (
-	`user_uid`
-);
-
-ALTER TABLE `cocoment` ADD CONSTRAINT `FK_coment_TO_cocoment_1` FOREIGN KEY (
-	`coment_id`
-)
-REFERENCES `coment` (
-	`coment_id`
-);
-
-ALTER TABLE `cocoment` ADD CONSTRAINT `FK_USER_TO_cocoment_1` FOREIGN KEY (
-	`cocoment_uid_from`
-)
-REFERENCES `USER` (
-	`user_uid`
-);
-
 ALTER TABLE `user_character` ADD CONSTRAINT `FK_USER_TO_user_character_1` FOREIGN KEY (
-	`user_uid`
+	`user_id`
 )
 REFERENCES `USER` (
-	`user_uid`
-);
-
-ALTER TABLE `intro_image` ADD CONSTRAINT `FK_USER_TO_intro_image_1` FOREIGN KEY (
-	`user_uid`
-)
-REFERENCES `USER` (
-	`user_uid`
+	`user_id`
 );
 
