@@ -26,4 +26,19 @@ public class UserVO {
 	private String user_profile;
 	private String user_sns;
 	
+	private UserVO(String user_email, String user_pw, String user_nickname, Boolean user_gender,
+			String user_nationality, int user_age, Boolean user_smoking, Boolean user_vaccine, boolean user_room,
+			boolean user_matching) {
+		this.user_email = user_email;
+		this.user_pw = user_pw;
+		this.user_nickname = user_nickname;
+		this.user_gender = user_gender;
+		this.user_nationality = user_nationality;
+		this.user_age = user_age;
+		this.user_smoking = user_smoking;
+		this.user_vaccine = user_vaccine;
+		this.user_room = user_room;
+		this.user_matching = user_matching;
+	}
+	
 }
