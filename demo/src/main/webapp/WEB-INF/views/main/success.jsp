@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>process succeed</title>
 </head>
 <body>
-	<h1>OMG(¿À¸í±Ù), you did it!!</h1>
-	<p>what a ÆÝ¼½Äð</p>
+	<h1>OMG(ì˜¤ëª…ê·¼), you did it!!</h1>
+	<p>what a íŽ€ì„¹ì¿¨</p>
 </body>
 </html>
