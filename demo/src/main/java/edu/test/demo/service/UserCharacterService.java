@@ -7,7 +7,7 @@ import edu.test.demo.dao.UserCharacterDAO;
 import edu.test.demo.vo.UserCharacterVO;
 
 @Service
-public class UserCharcterService {
+public class UserCharacterService {
 	@Autowired
 	UserCharacterDAO userCharacterDAO;
 	
