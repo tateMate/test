@@ -6,10 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import edu.test.demo.service.UserService;
 import edu.test.demo.vo.UserVO;
@@ -28,7 +25,7 @@ public class TestController2 {
 	@PostMapping("/join")
 	public String UserInsertPost(UserVO vo) {
 		userService.insertUser(vo);
-		return "user";
+		return "main/success";
 	}
 
 	//로그인
@@ -43,12 +40,13 @@ public class TestController2 {
 		System.out.println(user_email +" / "+ user_pw);
 		if (user == null) {
 			System.out.println("로그인실패");
-			return "redirect:/test";
+			return "main/fail";
 		}else {
 			session.setAttribute("user", user);
 			System.out.println("로그인 성공");
-			return "redirect:/user";
+			return "main/success";
 		}
+		
 	}
 	
 	
