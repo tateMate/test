@@ -1,12 +1,15 @@
 package edu.test.demo.controller;
 
+import java.io.*;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.test.demo.service.UserService;
 import edu.test.demo.vo.UserVO;
@@ -16,19 +19,20 @@ public class TestController2 {
 	@Autowired
 	UserService userService;
 	
-	//회원가입
+//회원가입
 	@GetMapping("/join")
 	public String UserInsertGet() {
 		return "main/join";
 	}
 
 	@PostMapping("/join")
-	public String UserInsertPost(UserVO vo) {
-		userService.insertUser(vo);
+	public String UserInsertPost(UserVO vo, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
+		System.out.println(file.getContentType());
+		userService.insertUser(vo, request, file);
 		return "main/success";
 	}
 
-	//로그인
+//로그인
 	@GetMapping("/login")
 	public String loginGet() {
 		return "main/login";
