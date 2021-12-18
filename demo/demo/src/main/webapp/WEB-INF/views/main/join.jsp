@@ -8,7 +8,7 @@
 <title>join</title>
 </head>
 <body>
-	<form role="form" action="join" method="post" enctype="multipart/form-data">
+	<form action="join" method="post">
 		<label>EMAIL:</label>
 		<input type="text" name="user_email"><br>
 		<label>PASSWORD:</label>
@@ -29,8 +29,7 @@
 		<input type="radio" value="1" name=user_room>있음<br>
 		<label>matching:</label>
 		<input type="radio" value="0" name=user_matching>원하지 않음
-		<input type="radio" value="1" name=user_matching>원함<br>
-		<input type="file" name="file">
+		<input type="radio" value="1" name=user_matching>원함
 		<br>
 		<input type="submit" value="가입">
 	</form>

@@ -1,25 +1,18 @@
 package edu.test.demo.service;
 
-import java.util.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.test.demo.dao.ComentDAO;
-import edu.test.demo.vo.CocomentVO;
 import edu.test.demo.vo.ComentVO;
 
 @Service
 public class ComentService {
 	@Autowired
 	ComentDAO comentDAO;
-//´ñ±Û ¾ÆÀÌµð·Î Æ¯Á¤ ´ñ±Û 1°³¸¦ ¹Þ¾Æ¿È	
+	
 	public ComentVO selectComentByComentId(int coment_id) {
 		return comentDAO.selectComentByComentId(coment_id);
 	}
-//À¯Àú ¾ÆÀÌµð·Î ´ñ±Û ¸ñ·ÏÀ» °¡Á®¿È	
-	public List<ComentVO> selectComentByUserId(int user_id){
-		return comentDAO.selectComentByUserId(user_id);
-	}
-	
+
 }

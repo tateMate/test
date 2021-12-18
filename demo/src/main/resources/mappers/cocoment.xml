@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.test.demo.dao.CocomentDAO">
+<!-- 대댓글 아이디로 특정 대댓글을 1개 받아옴 -->
+	<select id = "selectCocomentByCocomentId" resultType="CocomentVO" parameterType="int">
+		SELECT * FROM cocoment
+		WHERE cocoment_id=#{cocoment_id}
+	</select>
+	
+<!-- 댓글 아이디로 대댓글 목록을 받아옴 -->
+	<select id="selectCocomentByComentId" resultType="CocomentVO" parameterType="int" >
+		SELECT * FROM cocoment
+		WHERE coment_id=#{coment_id}
+	</select>
+
+</mapper>

@@ -10,7 +10,7 @@ import edu.test.demo.vo.UserCharacterVO;
 public class UserCharacterService {
 	@Autowired
 	UserCharacterDAO userCharacterDAO;
-//유저 아이디로 특정 성향 1개를 받아옴
+	
 	public UserCharacterVO selectUserCharacterByUserId(int user_id) {
 		return userCharacterDAO.selectUserCharacterByUserId(user_id);
 	}

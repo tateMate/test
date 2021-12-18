@@ -17,5 +17,4 @@ public class CocomentVO {
 	private String cocoment_contents;
 	private Timestamp cocoment_time;
 	private int cocoment_status;
-	private boolean cocoment_access;
 }
