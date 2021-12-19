@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.test.demo.service.UserService;
@@ -21,12 +22,15 @@ public class TestController {
 	
 	
 	@GetMapping("/user")
-	public List selectUser() {
-		return userService.selectUser();
+	public List<UserVO> selectUser(@RequestParam(required = false) Integer id) {
+		List<UserVO> li=new ArrayList<UserVO>();
+		li.add(userService.selectUserByUserId(id));
+		if(id==null) return userService.selectUser();
+		return li;
 	}
 	@GetMapping("/test")
 	public String test() {
-		return "현재 시각은 "+new Date() + "입니다.";
+		return "�쁽�옱 �떆媛곸� "+new Date() + "�엯�땲�떎.";
 	}
 	@PostMapping("/api/users")
 	public UserVO users() {
