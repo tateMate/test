@@ -1,6 +1,10 @@
 package edu.test.demo.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +25,15 @@ public class ComentService {
 	public List<ComentVO> selectComentByUserId(int user_id){
 		return comentDAO.selectComentByUserId(user_id);
 	}
+//댓글을 받는 사람 아이디로 댓글 목록을 가져옴
+	public List<ComentVO> selectComentByComentIdTo(int coment_id_to){
+		return comentDAO.selectComentByComentIdTo(coment_id_to);
+	}
+//댓글 입력
+	public int insertComent(ComentVO vo) {
+		//vo.setComent_time(Timestamp.valueOf(LocalDateTime.now()));
+		return comentDAO.insertComent(vo);
+	}
+
 	
 }

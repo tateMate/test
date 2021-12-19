@@ -7,7 +7,7 @@
 	</select>
 
 <!-- user id로 user선택 -->	
-	<select id = "selectUserByUserId" resultType="UserVO">
+	<select id = "selectUserByUserId" resultType="UserVO" parameterType="int">
 		SELECT * FROM user 
 		WHERE user_id=#{user_id}
 	</select>

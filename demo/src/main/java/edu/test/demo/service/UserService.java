@@ -28,8 +28,8 @@ public class UserService {
 	}
 	
 //user id로 user 선택
-	public UserVO selectUserByUserId() {
-		return userDAO.selectUserByUserId();
+	public UserVO selectUserByUserId(int user_id) {
+		return userDAO.selectUserByUserId(user_id);
 	}
 	
 //회원가입(user 집어넣기)	
@@ -54,7 +54,7 @@ public class UserService {
 	
 //pw 암호화(SHA256이용)
 	private String shalize(String pw) {
-		String SHA = null;
+		String sha = null;
 		try {
 			MessageDigest sh = MessageDigest.getInstance("SHA-256");
 			sh.update(pw.getBytes());
@@ -64,11 +64,11 @@ public class UserService {
 				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
 			
 			}
-			SHA = sb.toString();
+			sha = sb.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		return SHA;
+		return sha;
 
 	}
 }

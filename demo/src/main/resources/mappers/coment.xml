@@ -12,5 +12,18 @@
 		SELECT * FROM coment
 		WHERE user_id=#{user_id}
 	</select>
+	
+<!-- 댓글을 받는 사람 아이디로 댓글 목록을 가져옴 -->
+	<select id="selectComentByComentIdTo" resultType="ComentVO" parameterType="int" >
+		SELECT * FROM coment
+		WHERE coment_id_to=#{coment_id_to}
+	</select>
+	
+<!-- 댓글 입력 -->
+	<insert id="insertComent" parameterType="ComentVO" >
+		INSERT INTO coment(coment_id, coment_id_to, coment_id_from, coment_contents, coment_time, coment_access, coment_status)
+		VALUES(#{coment_id},#{coment_id_to},#{coment_id_from},#{coment_contents},#{coment_time},#{coment_access},#{coment_status})
+	</insert>
+
 
 </mapper>
