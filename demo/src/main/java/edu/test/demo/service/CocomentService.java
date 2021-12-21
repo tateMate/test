@@ -22,4 +22,10 @@ public class CocomentService {
 	public List<CocomentVO> selectCocomentByComentId(int coment_id) {
 		return cocomentDAO.selectCocomentByComentId(coment_id);
 	}
+
+//´ë´ñ±Û ÀÔ·Â
+	public void insertCocoment(CocomentVO vo) {
+		return cocomentDAO.insertCocoment(vo);
+		
+	}
 }

@@ -12,5 +12,10 @@
 		SELECT * FROM cocoment
 		WHERE coment_id=#{coment_id}
 	</select>
+<!-- 대댓글 입력 -->
+	<insert id="insertCocoment" parameterType="CocomentVO">
+		INSERT INTO cocoment(cocoment_id,coment_id,cocoment_id_from,cocoment_contents,cocoment_time,cocoment_status,cocoment_access)
+		VALUES(#{cocoment_id},#{coment_id},#{cocoment_id_from},#{cocoment_contents},#{cocoment_time},#{cocoment_status},#{cocoment_access})
+	</insert>
 
 </mapper>

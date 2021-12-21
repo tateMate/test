@@ -1,20 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>user info page</title>
 <style type="text/css">
+	body{
+		background-color: gray;
+	}
 	.this{
 		display:flex;
 		width:500px;
 		justify-content: space-between;
 	}
+	h1{ display: inline-block;}
 </style>
 </head>
 <body>
 	<h1>${user.user_nickname}의 info page</h1>
+	<button onclick="location.href='http://localhost:8080/login'">로그인</button>
 	<hr>
 	<div class="this">
 		<div>
@@ -42,6 +48,17 @@
 	<hr>
 		<div>
 		<h1>coment zone</h1>
+		<div>
+			<table>
+				<c:forEach var="coment" items="${coment}">
+			<tr>
+				<td>${coment.coment_id_from}</td>
+				<td>${coment.coment_contents}</td>
+				<td>${coment.coment_time}</td>
+			</tr>
+				</c:forEach>
+			</table>
+		</div>
 		<form role="form" action="coment" method="post">
 			<input type="hidden" name=coment_id_to value="${user.user_id}">
 			<input type="hidden" name=coment_id_from value="${sessionScope.user.user_id}">
@@ -52,6 +69,6 @@
 			<input type="submit" value="댓글입력">
 		</form>
 		</div>
-	
+	<a href="http://localhost:8080/main">main으로</a>
 </body>
 </html>

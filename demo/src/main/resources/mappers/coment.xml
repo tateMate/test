@@ -7,12 +7,6 @@
 		WHERE coment_id=#{coment_id}
 	</select>
 	
-<!-- 유저 아이디로 댓글 목록을 가져옴 -->
-	<select id="selectComentByUserId" resultType="ComentVO" parameterType="int" >
-		SELECT * FROM coment
-		WHERE user_id=#{user_id}
-	</select>
-	
 <!-- 댓글을 받는 사람 아이디로 댓글 목록을 가져옴 -->
 	<select id="selectComentByComentIdTo" resultType="ComentVO" parameterType="int" >
 		SELECT * FROM coment
