@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.test.demo.dao.UserDAO">
-<!-- 유저 선택 -->
+<!-- 유저 선택(test) -->
 	<select id = "selectUser" resultType="UserVO">
 		SELECT * FROM user 
 	</select>
+
+<!-- user id로 user선택 -->	
+	<select id = "selectUserByUserId" resultType="UserVO" parameterType="int">
+		SELECT * FROM user 
+		WHERE user_id=#{user_id}
+	</select>
+
 	
 <!-- 회원가입 -->
 	<insert id="insertUser" parameterType="UserVO">
-		INSERT INTO user(user_email,user_pw,user_nickname,user_gender,user_nationality,user_age,user_smoking,user_vaccine,user_room,user_matching)
-		VALUES(#{user_email},#{user_pw},#{user_nickname},#{user_gender},#{user_nationality},#{user_age},#{user_smoking},#{user_vaccine},#{user_room},#{user_matching})  
+		INSERT INTO user(user_email,user_pw,user_nickname,user_gender,user_nationality,user_age,user_smoking,user_vaccine,user_room,user_matching,user_profile)
+		VALUES(#{user_email},#{user_pw},#{user_nickname},#{user_gender},#{user_nationality},#{user_age},#{user_smoking},#{user_vaccine},#{user_room},#{user_matching},#{user_profile})  
 	</insert>
 
 <!-- 로그인 체크 -->

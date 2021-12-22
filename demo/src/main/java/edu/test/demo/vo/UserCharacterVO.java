@@ -15,5 +15,5 @@ public class UserCharacterVO {
  private int cooking_frequency;
  private int chatter;
  private int snoring;
- private int mbti;
+ private String mbti;
 }

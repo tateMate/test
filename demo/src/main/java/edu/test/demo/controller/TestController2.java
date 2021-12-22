@@ -1,34 +1,75 @@
 package edu.test.demo.controller;
 
+import java.io.*;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import edu.test.demo.service.CocomentService;
+import edu.test.demo.service.ComentService;
+import edu.test.demo.service.UserCharacterService;
 import edu.test.demo.service.UserService;
+import edu.test.demo.vo.CocomentVO;
+import edu.test.demo.vo.ComentVO;
 import edu.test.demo.vo.UserVO;
 
 @Controller
 public class TestController2 {
 	@Autowired
 	UserService userService;
+	@Autowired
+	UserCharacterService userCharacterService;
+	@Autowired
+	ComentService comentService;
+	@Autowired
+	CocomentService cocomentService;
+//test main page
+	@GetMapping("/main")
+	public String testpage() {
+		return "main/testmain";
+	}
+//user info
+	@GetMapping("/userinfo")
+	public String userInfoPage(Model model, @RequestParam(required = false) Integer user_id) {
+		model.addAttribute("user",userService.selectUserByUserId(user_id));
+		model.addAttribute("character",userCharacterService.selectUserCharacterByUserId(user_id));
+		model.addAttribute("coment", comentService.selectComentByComentIdTo(user_id));
+		return "main/userInfo";
+	}
+//댓글입력
+	@PostMapping("/coment")
+	public String PostComent(ComentVO comentVO){
+		comentService.insertComent(comentVO);
+		return "main/success";
+	}
+//대댓글입력
+	@PostMapping("/cocoment")
+	public String PostCocoment(CocomentVO cocomentVO){
+		cocomentService.insertCocoment(cocomentVO);
+		return "main/success";
+	}
 	
-	//회원가입
+//회원가입
 	@GetMapping("/join")
 	public String UserInsertGet() {
 		return "main/join";
 	}
 
 	@PostMapping("/join")
-	public String UserInsertPost(UserVO vo) {
-		userService.insertUser(vo);
+	public String UserInsertPost(UserVO vo, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
+		System.out.println(file.getContentType());
+		userService.insertUser(vo, request, file);
 		return "main/success";
 	}
 
-	//로그인
+//로그인
 	@GetMapping("/login")
 	public String loginGet() {
 		return "main/login";
@@ -39,11 +80,9 @@ public class TestController2 {
 		UserVO user = userService.loginCheck(user_email, user_pw); 
 		System.out.println(user_email +" / "+ user_pw);
 		if (user == null) {
-			System.out.println("로그인실패");
 			return "main/fail";
 		}else {
 			session.setAttribute("user", user);
-			System.out.println("로그인 성공");
 			return "main/success";
 		}
 		

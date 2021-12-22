@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.test.demo.dao.ComentDAO">
+<!-- 댓글 아이디로 특정 댓글 1개를 받아옴 -->
+	<select id = "selectComentByComentId" resultType="ComentVO" parameterType="int">
+		SELECT * FROM coment
+		WHERE coment_id=#{coment_id}
+	</select>
+	
+<!-- 댓글을 받는 사람 아이디로 댓글 목록을 가져옴 -->
+	<select id="selectComentByComentIdTo" resultType="ComentVO" parameterType="int" >
+		SELECT * FROM coment
+		WHERE coment_id_to=#{coment_id_to}
+	</select>
+	
+<!-- 댓글 입력 -->
+	<insert id="insertComent" parameterType="ComentVO" >
+		INSERT INTO coment(coment_id, coment_id_to, coment_id_from, coment_contents, coment_time, coment_access, coment_status)
+		VALUES(#{coment_id},#{coment_id_to},#{coment_id_from},#{coment_contents},#{coment_time},#{coment_access},#{coment_status})
+	</insert>
+
+
+</mapper>
