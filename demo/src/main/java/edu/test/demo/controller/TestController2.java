@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import edu.test.demo.service.ComentService;
+import edu.test.demo.service.CocommentService;
+import edu.test.demo.service.CommentService;
 import edu.test.demo.service.UserCharacterService;
 import edu.test.demo.service.UserService;
-import edu.test.demo.vo.ComentVO;
+import edu.test.demo.vo.CocommentVO;
+import edu.test.demo.vo.CommentVO;
 import edu.test.demo.vo.UserVO;
 
 @Controller
@@ -25,7 +27,9 @@ public class TestController2 {
 	@Autowired
 	UserCharacterService userCharacterService;
 	@Autowired
-	ComentService comentService;
+	CommentService commentService;
+	@Autowired
+	CocommentService cocommentService;
 //test main page
 	@GetMapping("/main")
 	public String testpage() {
@@ -35,13 +39,23 @@ public class TestController2 {
 	@GetMapping("/userinfo")
 	public String userInfoPage(Model model, @RequestParam(required = false) Integer user_id) {
 		model.addAttribute("user",userService.selectUserByUserId(user_id));
-		model.addAttribute("character",userCharacterService.selectUserCharacterByUserId(1));
+		model.addAttribute("character",userCharacterService.selectUserCharacterByUserId(user_id));
+		model.addAttribute("comment", commentService.selectCommentByCommentIdTo(user_id));
+		model.addAttribute("cocomment", cocommentService.selectCocommentByUserId(user_id));
 		return "main/userInfo";
 	}
 //댓글입력
-	@PostMapping("/coment")
-	public String PostComent(ComentVO comentVO){
-		comentService.insertComent(comentVO);
+	@PostMapping("/comment")
+	public String PostComment(CommentVO commentVO, HttpSession session){
+		commentService.insertComment(commentVO);
+		return "main/success";
+	}
+//대댓글입력
+	@PostMapping("/cocomment")
+	public String PostCocomment(CocommentVO cocommentVO, HttpSession session){
+		System.out.println("대댓글 쓴 이(로그인 중인 id):"+cocommentVO.getCocomment_id_from());
+		System.out.println("cocomment id:"+cocommentVO.getCocomment_id()+"/cocomment id:"+cocommentVO.getComment_id());
+		cocommentService.insertCocomment(cocommentVO);
 		return "main/success";
 	}
 	
