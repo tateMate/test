@@ -12,12 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import edu.test.demo.service.CocomentService;
-import edu.test.demo.service.ComentService;
+import edu.test.demo.service.CocommentService;
+import edu.test.demo.service.CommentService;
 import edu.test.demo.service.UserCharacterService;
 import edu.test.demo.service.UserService;
-import edu.test.demo.vo.CocomentVO;
-import edu.test.demo.vo.ComentVO;
+import edu.test.demo.vo.CocommentVO;
+import edu.test.demo.vo.CommentVO;
 import edu.test.demo.vo.UserVO;
 
 @Controller
@@ -27,9 +27,9 @@ public class TestController2 {
 	@Autowired
 	UserCharacterService userCharacterService;
 	@Autowired
-	ComentService comentService;
+	CommentService commentService;
 	@Autowired
-	CocomentService cocomentService;
+	CocommentService cocommentService;
 //test main page
 	@GetMapping("/main")
 	public String testpage() {
@@ -40,19 +40,19 @@ public class TestController2 {
 	public String userInfoPage(Model model, @RequestParam(required = false) Integer user_id) {
 		model.addAttribute("user",userService.selectUserByUserId(user_id));
 		model.addAttribute("character",userCharacterService.selectUserCharacterByUserId(user_id));
-		model.addAttribute("coment", comentService.selectComentByComentIdTo(user_id));
+		model.addAttribute("comment", commentService.selectCommentByCommentIdTo(user_id));
 		return "main/userInfo";
 	}
 //댓글입력
-	@PostMapping("/coment")
-	public String PostComent(ComentVO comentVO){
-		comentService.insertComent(comentVO);
+	@PostMapping("/comment")
+	public String PostComment(CommentVO commentVO){
+		commentService.insertComment(commentVO);
 		return "main/success";
 	}
 //대댓글입력
-	@PostMapping("/cocoment")
-	public String PostCocoment(CocomentVO cocomentVO){
-		cocomentService.insertCocoment(cocomentVO);
+	@PostMapping("/cocomment")
+	public String PostCocomment(CocommentVO cocommentVO){
+		cocommentService.insertCocomment(cocommentVO);
 		return "main/success";
 	}
 	

@@ -47,24 +47,24 @@
 	</div>
 	<hr>
 		<div>
-		<h1>coment zone</h1>
+		<h1>comment zone</h1>
 		<div>
 			<table>
-				<c:forEach var="coment" items="${coment}">
+				<c:forEach var="comment" items="${comment}">
 			<tr>
-				<td>${coment.coment_id_from}</td>
-				<td>${coment.coment_contents}</td>
-				<td>${coment.coment_time}</td>
+				<td>${comment.comment_id_from}</td>
+				<td>${comment.comment_contents}</td>
+				<td>${comment.comment_time}</td>
 			</tr>
 				</c:forEach>
 			</table>
 		</div>
-		<form role="form" action="coment" method="post">
-			<input type="hidden" name=coment_id_to value="${user.user_id}">
-			<input type="hidden" name=coment_id_from value="${sessionScope.user.user_id}">
-			<input type="text" name=coment_contents placeholder="댓글내용 입력">
+		<form role="form" action="comment" method="post">
+			<input type="hidden" name=comment_id_to value="${user.user_id}">
+			<input type="hidden" name=comment_id_from value="${sessionScope.user.user_id}">
+			<input type="text" name=comment_contents placeholder="댓글내용 입력">
 			<label>비밀글</label>
-			<input type="checkbox" value="1" name=coment_access><br>
+			<input type="checkbox" value="1" name=comment_access><br>
 			<br>
 			<input type="submit" value="댓글입력">
 		</form>

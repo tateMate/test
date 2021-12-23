@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.test.demo.dao.ComentDAO;
-import edu.test.demo.service.CocomentService;
-import edu.test.demo.service.ComentService;
+import edu.test.demo.dao.CommentDAO;
+import edu.test.demo.service.CocommentService;
+import edu.test.demo.service.CommentService;
 import edu.test.demo.service.ImageService;
 import edu.test.demo.service.UserCharacterService;
 import edu.test.demo.service.UserService;
-import edu.test.demo.vo.ComentVO;
+import edu.test.demo.vo.CommentVO;
 import edu.test.demo.vo.UserVO;
 
 @RestController
@@ -23,8 +23,8 @@ public class MainController {
 	UserService userService;
 	ImageService imageService;
 	UserCharacterService userCharacterService;
-	ComentService comentService;
-	CocomentService cocomentService;
+	CommentService commentService;
+	CocommentService cocommentService;
 	
 	@RequestMapping(value = "/user", method=RequestMethod.GET)
 	public List<UserVO> getUserVO(){
@@ -35,11 +35,11 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/user", method=RequestMethod.GET)
-	public List<ComentVO> getComentVO(int user_id){
-		List<ComentVO> comentList = new ArrayList<ComentVO>();
-		ComentVO coment=comentService.selectComentByComentId(user_id);
-		comentList.add(coment);
-		return comentList;
+	public List<CommentVO> getCommentVO(int user_id){
+		List<CommentVO> commentList = new ArrayList<CommentVO>();
+		CommentVO comment=commentService.selectCommentByCommentId(user_id);
+		commentList.add(comment);
+		return commentList;
 	}
 	
 	

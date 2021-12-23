@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import edu.test.demo.vo.ComentVO;
 import edu.test.demo.vo.UserVO;
 
 @Repository
@@ -14,7 +13,7 @@ import edu.test.demo.vo.UserVO;
 public interface UserDAO {
 	public List<UserVO> selectUser();					//for a test
 	
-	public UserVO selectUserByUserId(int user_id);		//user id·Î user¼±ÅÃ
-	public int insertUser(UserVO vo);					//È¸¿ø°¡ÀÔ
-	public UserVO selectUserLogin(Map<String, String> id_pass);//·Î±ä
+	public UserVO selectUserByUserId(int user_id);		//user idï¿½ï¿½ userï¿½ï¿½ï¿½ï¿½
+	public int insertUser(UserVO vo);					//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public UserVO selectUserLogin(Map<String, String> id_pass);//ï¿½Î±ï¿½
 }
