@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.test.demo.dao.CommentDAO;
-import edu.test.demo.vo.CocommentVO;
 import edu.test.demo.vo.CommentVO;
 import edu.test.demo.vo.NicknamedCommentVO;
 
@@ -36,5 +35,4 @@ public class CommentService {
 		return commentDAO.insertComment(vo);
 	}
 
-	
 }

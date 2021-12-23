@@ -53,35 +53,8 @@ public class TestController {
 	}
 	@GetMapping("/rest/test")
 	public List test() {
-		JSONArray ja = new JSONArray();
-		int user_id = 1;
-		List<NicknamedCommentVO> commentList = commentService.selectNicknamedCommentByCommentIdTo(user_id);
-//		[{"comment":commentVO, "cocomment":[cocommentVO]}] 방식
-		for (NicknamedCommentVO comment : commentList) {
-			int comment_id = comment.getComment_id();
-			List<NicknamedCocommentVO> cocoList = cocommentService.selectNicknamedCocommentByCommentId(comment_id);
-			JSONObject jo = new JSONObject();
-			jo.put("comment", comment);
-			jo.put("cocomment", cocoList);
-			ja.add(jo);
-		}
-		
-//		[{commentVO, "cocomment":[cocommentVO]}] 방식
-//		for (CommentVO comment : commentList) {
-//			int comment_id = comment.getComment_id();
-//			List<CocommentVO> cocoList = cocommentService.selectCocommentByCommentId(comment_id);
-//			JSONObject jo = new JSONObject();
-//			jo.put("comment_id", comment.getComment_id());
-//			jo.put("comment_id_to", comment.getComment_id_to());
-//			jo.put("comment_id_from", comment.getComment_id_from());
-//			jo.put("comment_contents", comment.getComment_contents());
-//			jo.put("comment_time", comment.getComment_time());
-//			jo.put("comment_access", comment.getComment_access());
-//			jo.put("comment_status", comment.getComment_status());
-//			jo.put("cocomment", cocoList);
-//			ja.add(jo);
-//		}
-		
+		int user_id = 2;
+		JSONArray ja = cocommentService.selectCocommentByCommentIdTo(user_id);
 		return ja;
 	}
 	@GetMapping("/api/users")
