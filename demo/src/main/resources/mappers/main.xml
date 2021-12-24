@@ -26,6 +26,13 @@
 		WHERE user_email = #{user_email}
 		AND user_pw = #{user_pw}   
 	</select>
+	
+<!-- 	유저 수정 -->
+	<update id="modifyUser" parameterType="UserVO">
+		UPDATE USER
+		SET user_nickname=#{user_nickname},user_nationality=#{user_nationality},user_age=#{user_age},user_smoking=#{user_smoking},user_vaccine=#{user_vaccine},user_room=#{user_room},user_matching=#{user_matching}
+		WHERE user_id=#{user_id}
+	</update>
 
 <!-- select 
 	<select id = "methodID" resultType="returnType"  parameterType="parameterType">

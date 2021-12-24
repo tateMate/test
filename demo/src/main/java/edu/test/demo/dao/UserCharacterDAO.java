@@ -4,10 +4,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import edu.test.demo.vo.UserCharacterVO;
+import edu.test.demo.vo.UserVO;
 
 
 @Repository
 @Mapper
 public interface UserCharacterDAO {
-	public UserCharacterVO selectUserCharacterByUserId(int user_id);	//À¯Àú ¾ÆÀÌµð·Î Æ¯Á¤ ¼ºÇâ 1°³¸¦ ¹Þ¾Æ¿È
+	public UserCharacterVO selectUserCharacterByUserId(int user_id);	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
+	public int modifyUserCharacter(UserCharacterVO vo);		//modify user character
 }

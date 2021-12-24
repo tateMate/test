@@ -18,6 +18,7 @@ import edu.test.demo.service.UserCharacterService;
 import edu.test.demo.service.UserService;
 import edu.test.demo.vo.CocommentVO;
 import edu.test.demo.vo.CommentVO;
+import edu.test.demo.vo.UserCharacterVO;
 import edu.test.demo.vo.UserVO;
 
 @Controller
@@ -35,6 +36,7 @@ public class TestController2 {
 	public String testpage() {
 		return "main/testmain";
 	}
+	
 //user info
 	@GetMapping("/userinfo")
 	public String userInfoPage(Model model, @RequestParam(required = false) Integer user_id) {
@@ -44,17 +46,44 @@ public class TestController2 {
 		model.addAttribute("cocomment", cocommentService.selectCocommentByUserId(user_id));
 		return "main/userInfo";
 	}
+
+//modify user info
+	@GetMapping("/userinfo/modify")
+	public String modifyUserInfoPage(@RequestParam Integer user_id) {
+		return "main/userModify";
+	}
+	@PostMapping("/userinfo/modify")
+	public String modifyUserInfo(UserVO userVO, UserCharacterVO userCharacterVO, HttpSession session) {
+		try {
+			userService.modifyUser(userVO,userCharacterVO,session);
+			return "main/success";
+		}catch (Exception e) {
+			System.out.println(e);
+			return "main/fail";
+		}
+	}
+	
 //댓글입력
 	@PostMapping("/comment")
 	public String PostComment(CommentVO commentVO, HttpSession session){
-		commentService.insertComment(commentVO);
-		return "main/success";
+		try {
+			commentService.insertComment(commentVO);
+			return "main/success";
+		}catch (Exception e) {
+			System.out.println(e);
+			return "main/fail";
+		}
 	}
 //댓글 삭제(해당 댓글의 status를 2로 바꿈)
 	@PostMapping("/delco")
 	public String deleteComment(int comment_id) {
-		commentService.deleteComment(comment_id);
-		return "main/success";
+		try {
+			commentService.deleteComment(comment_id);
+			return "main/success";
+		} catch (Exception e) {
+			System.out.println(e);
+			return "main/fail";
+		}
 	}
 	
 //대댓글입력
@@ -68,8 +97,13 @@ public class TestController2 {
 //대댓글 삭제(해당 대댓글의 status를 2로 바꿈)
 	@PostMapping("/delcoco")
 	public String deleteCocomment(int cocomment_id) {
-		cocommentService.deleteCocomment(cocomment_id);
-		return "main/success";
+		try {
+			cocommentService.deleteCocomment(cocomment_id);
+			return "main/success";
+		} catch (Exception e) {
+			System.out.println(e);
+			return "main/fail";
+		}
 	}
 	
 //회원가입

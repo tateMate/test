@@ -46,6 +46,7 @@
 			<h3>mbti	:${character.mbti}</h3>
 		</div>
 	</div>
+	<button onclick="window.location.href='/userinfo/modify?user_id=${user.user_id}'">회원정보 수정</button>
 	<hr>
 		<div>
 		<h1>comment zone</h1>

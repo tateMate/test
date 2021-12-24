@@ -9,42 +9,54 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.test.demo.dao.UserCharacterDAO;
 import edu.test.demo.dao.UserDAO;
+import edu.test.demo.vo.UserCharacterVO;
 import edu.test.demo.vo.UserVO;
 
 @Service
 public class UserService {
 	@Autowired
 	UserDAO userDAO;
+	@Autowired
+	UserCharacterDAO userCharacterDAO;
 	
 //for a test
 	public List<UserVO> selectUser() {
 		return userDAO.selectUser();
 	}
 	
-//user id·Î user ¼±ÅÃ
+//user idï¿½ï¿½ user ï¿½ï¿½ï¿½ï¿½
 	public UserVO selectUserByUserId(int user_id) {
 		return userDAO.selectUserByUserId(user_id);
 	}
 	
-//È¸¿ø°¡ÀÔ(user Áý¾î³Ö±â)	
+//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(user ï¿½ï¿½ï¿½ï¿½Ö±ï¿½)	
 	public int insertUser(UserVO vo, HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
 		String fileURL=request.getServletContext().getRealPath("IMG");
 		String uploadFileName=vo.getUser_email().replace(".","d").replace("@","at")+"."+file.getContentType().substring(file.getContentType().lastIndexOf("/")+1);
 		System.out.println(uploadFileName);
 		File destinationFile=new File(fileURL, uploadFileName);
 		file.transferTo(destinationFile);//upload
-		vo.setUser_profile(uploadFileName);//uploadµÈ °æ·Î¸¦ vo¿¡ setting
+		vo.setUser_profile(uploadFileName);//uploadï¿½ï¿½ ï¿½ï¿½Î¸ï¿½ voï¿½ï¿½ setting
 		vo.setUser_pw(shalize(vo.getUser_email()+vo.getUser_pw()));
 		return userDAO.insertUser(vo);
 	}
+	
+//modify user info
+	public int modifyUser(UserVO userVO, UserCharacterVO userCharacterVO, HttpSession session) {
+		userCharacterDAO.modifyUserCharacter(userCharacterVO);
+		return userDAO.modifyUser(userVO);
+	}
+	
 
-//·Î±×ÀÎ
+//ï¿½Î±ï¿½ï¿½ï¿½
 	public UserVO loginCheck(String user_email, String user_pw) {
 		Map<String, String> id_pass = new HashMap<>();
 		id_pass.put("user_email", user_email);
@@ -52,7 +64,7 @@ public class UserService {
 		return userDAO.selectUserLogin(id_pass);
 	}
 	
-//pw ¾ÏÈ£È­(SHA256ÀÌ¿ë)
+//pw ï¿½ï¿½È£È­(SHA256ï¿½Ì¿ï¿½)
 	private String shalize(String pw) {
 		String sha = null;
 		try {
