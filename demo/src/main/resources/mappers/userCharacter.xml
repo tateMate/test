@@ -7,5 +7,11 @@
 		WHERE user_id=#{user_id}
 	</select>
 	
+<!-- 	유저 성향 수정 -->
+	<update id="modifyUserCharacter" parameterType="UserCharacterVO">
+		UPDATE USER_CHARACTER
+		SET cleanliness=#{cleanliness},wakeup_time=#{wakeup_time},sleep_time=#{sleep_time},cooking_frequency=#{cooking_frequency},chatter=#{chatter},snoring=#{snoring},mbti=#{mbti}
+		WHERE user_id=#{user_id}
+	</update>
 
 </mapper>

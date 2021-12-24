@@ -46,27 +46,45 @@
 			<h3>mbti	:${character.mbti}</h3>
 		</div>
 	</div>
+	<button onclick="window.location.href='/userinfo/modify?user_id=${user.user_id}'">회원정보 수정</button>
 	<hr>
 		<div>
 		<h1>comment zone</h1>
 		<div>
 			<table>
 				<c:forEach var="comment" items="${comment}" varStatus="status">
-					<tr>
+<!-- 댓글 zone -->
+					<c:if test="${comment.comment_status==2}" >
+						<tr><td colspan="3">삭제된 글입니다.</td></tr>
+					</c:if>
+					<c:if test="${comment.comment_status==0}" ><tr>
 						<td>${comment.comment_id_from}</td>
 						<td onclick="setcocommentname(${comment.comment_id})">${comment.comment_contents}</td>
 						<td>${comment.comment_time}</td>
-						<td><button onclick="delco(${comment.comment_id})">del</button></td>
-					</tr>
+						<td>
+							<form action="delco" method="post">
+								<input type="hidden" name="comment_id" value="${comment.comment_id}">
+								<button type="submit">del</button>
+							</form>
+						</td>
+					</tr></c:if>
+<!-- 대댓글 zone -->
 					<c:forEach var="cocomment" items="${cocomment[status.index]}">
-						<tr>
+						<c:if test="${cocomment.cocomment_status==2}"><tr>
+							<td colspan=3>ㄴ삭제된 글입니다.</td>
+						</tr></c:if>
+						
+						<c:if test="${cocomment.cocomment_status==0}"><tr>
 							<td colspan="3">ㄴ
 							${cocomment.cocomment_id_from}
-							<mark>${cocomment.cocomment_contents}</mark>
+							<em>${cocomment.cocomment_contents}</em>
 							${cocomment.cocomment_time}
-							<button style="background-color:red;">del</button>
+							<form action="delcoco" method="post" style="display:inline-block;">
+								<input type="hidden" name="cocomment_id" value="${cocomment.cocomment_id}">
+								<button style="background-color:red;" type="submit">del</button>
+							</form>
 							</td>
-						</tr>
+						</tr></c:if>
 					</c:forEach>
 				</c:forEach>
 			</table>
@@ -92,9 +110,6 @@
 	function setcocommentname(commentid){
 		document.getElementById("inputcocomment").style.cssText = "display:inline-block;"
 		document.getElementById("commentid").value=commentid
-	}
-	function delco(commentid){
-// 		대애충 java에 있는 deletebycommentid메서드 받아와서 적용하는 코드
 	}
 </script>
 

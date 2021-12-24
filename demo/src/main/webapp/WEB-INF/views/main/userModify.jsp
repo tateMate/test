@@ -8,16 +8,11 @@
 <title>join</title>
 </head>
 <body>
-	<form role="form" action="join" method="post" enctype="multipart/form-data">
-		<label>EMAIL:</label>
-		<input type="text" name="user_email"><br>
-		<label>PASSWORD:</label>
-		<input type="password" name=user_pw><br>
+	<form role="form" action="modify" method="post" enctype="multipart/form-data">
+		<input type="hidden" value="${sessionScope.user.user_id}" name="user_id">
+		<label>EMAIL:</label>${sessionScope.user.user_email}<br>
 		<label>nickname:</label>
-		<input type="text" name=user_nickname><br>
-		<label>gender:</label>
-		<input type="radio" value="0" name=user_gender>남
-		<input type="radio" value="1" name=user_gender>여<br>
+		<input value="${sessionScope.user.user_nickname}" type="text" name=user_nickname><br>
 		<label>nationality:</label> <input type="text" name=user_nationality><br>
 		<label>age:</label> <input type="number" name=user_age><br>
 		<label>smoking:</label>
@@ -32,8 +27,7 @@
 		<input type="radio" value="1" name=user_matching>원함<br>
 		<input type="file" name="file">
 		<br>
-		<input type="submit" value="가입">
-		<input type="reset" value="다시쓰자">
+		<input type="submit" value="수정">
 	</form>
 	<br>
 	<hr>

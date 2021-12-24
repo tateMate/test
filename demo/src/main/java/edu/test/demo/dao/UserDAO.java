@@ -16,4 +16,5 @@ public interface UserDAO {
 	public UserVO selectUserByUserId(int user_id);		//user id�� user����
 	public int insertUser(UserVO vo);					//ȸ������
 	public UserVO selectUserLogin(Map<String, String> id_pass);//�α�
+	public int modifyUser(UserVO vo);		//modify user
 }
