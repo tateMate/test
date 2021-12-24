@@ -32,8 +32,14 @@
 
 <!-- 대댓글 입력 -->
 	<insert id="insertCocomment" parameterType="CocommentVO">
-		INSERT INTO cocomment(cocomment_id,comment_id,cocomment_id_from,cocomment_contents,cocomment_time,cocomment_status,cocomment_access)
-		VALUES(#{cocomment_id},#{comment_id},#{cocomment_id_from},#{cocomment_contents},#{cocomment_time},#{cocomment_status},#{cocomment_access})
+		INSERT INTO cocomment(cocomment_id,comment_id,cocomment_id_from,cocomment_contents,cocomment_time,cocomment_status)
+		VALUES(#{cocomment_id},#{comment_id},#{cocomment_id_from},#{cocomment_contents},#{cocomment_time},#{cocomment_status})
 	</insert>
 
+<!-- 대댓글 삭제하기(status를 2으로 바꿈) -->
+	<update id="deleteCocomment" parameterType="int">
+		UPDATE cocomment
+		SET cocomment_status=2
+		WHERE cocomment_id=#{cocomment_id}
+	</update>
 </mapper>

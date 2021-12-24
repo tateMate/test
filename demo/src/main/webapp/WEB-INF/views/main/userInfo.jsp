@@ -16,6 +16,7 @@
 		justify-content: space-between;
 	}
 	h1{ display: inline-block;}
+	#inputcocomment{display: none;}
 </style>
 </head>
 <body>
@@ -50,25 +51,65 @@
 		<h1>comment zone</h1>
 		<div>
 			<table>
-				<c:forEach var="comment" items="${comment}">
-			<tr>
-				<td>${comment.comment_id_from}</td>
-				<td>${comment.comment_contents}</td>
-				<td>${comment.comment_time}</td>
-			</tr>
+				<c:forEach var="comment" items="${comment}" varStatus="status">
+<!-- 댓글 zone -->
+					<c:if test="${comment.comment_status==2}" >
+						<tr><td colspan="3">삭제된 글입니다.</td></tr>
+					</c:if>
+					<c:if test="${comment.comment_status==0}" ><tr>
+						<td>${comment.comment_id_from}</td>
+						<td onclick="setcocommentname(${comment.comment_id})">${comment.comment_contents}</td>
+						<td>${comment.comment_time}</td>
+						<td>
+							<form action="delco" method="post">
+								<input type="hidden" name="comment_id" value="${comment.comment_id}">
+								<button type="submit">del</button>
+							</form>
+						</td>
+					</tr></c:if>
+<!-- 대댓글 zone -->
+					<c:forEach var="cocomment" items="${cocomment[status.index]}">
+						<c:if test="${cocomment.cocomment_status==2}"><tr>
+							<td colspan=3>ㄴ삭제된 글입니다.</td>
+						</tr></c:if>
+						
+						<c:if test="${cocomment.cocomment_status==0}"><tr>
+							<td colspan="3">ㄴ
+							${cocomment.cocomment_id_from}
+							<em>${cocomment.cocomment_contents}</em>
+							${cocomment.cocomment_time}
+							<form action="delcoco" method="post" style="display:inline-block;">
+								<input type="hidden" name="cocomment_id" value="${cocomment.cocomment_id}">
+								<button style="background-color:red;" type="submit">del</button>
+							</form>
+							</td>
+						</tr></c:if>
+					</c:forEach>
 				</c:forEach>
 			</table>
 		</div>
+		<form id="inputcocomment" role="form" action="cocomment" method="post">
+			<input id="commentid" type="hidden" name=comment_id value="${cocoment.coment_id}">
+			<input type="hidden" name=cocomment_id_from value="${sessionScope.user.user_id}">
+			<input type="text" name=cocomment_contents placeholder="대댓글내용 입력">
+			<input type="submit" value="대댓글입력">
+		</form>
 		<form role="form" action="comment" method="post">
 			<input type="hidden" name=comment_id_to value="${user.user_id}">
 			<input type="hidden" name=comment_id_from value="${sessionScope.user.user_id}">
 			<input type="text" name=comment_contents placeholder="댓글내용 입력">
 			<label>비밀글</label>
-			<input type="checkbox" value="1" name=comment_access><br>
-			<br>
+			<input type="checkbox" value="1" name=comment_access>
 			<input type="submit" value="댓글입력">
 		</form>
 		</div>
 	<a href="http://localhost:8080/main">main으로</a>
 </body>
+<script>
+	function setcocommentname(commentid){
+		document.getElementById("inputcocomment").style.cssText = "display:inline-block;"
+		document.getElementById("commentid").value=commentid
+	}
+</script>
+
 </html>

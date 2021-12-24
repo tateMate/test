@@ -15,5 +15,6 @@ public interface CocommentDAO {
 	public NicknamedCocommentVO selectNicknamedCocommentByCocommentId(int cocomment_id);//ver nickname
 	public List<CocommentVO> selectCocommentByCommentId(int comment_id);//��� ���̵�� ���� ����� �޾ƿ�
 	public List<NicknamedCocommentVO> selectNicknamedCocommentByCommentId(int comment_id);// ver nickname
-	public int insertCocomment(CocommentVO vo);
+	public int insertCocomment(CocommentVO vo);		//대댓글 입력
+	public int deleteCocomment(int cocomment_id);	//대댓글 삭제
 }

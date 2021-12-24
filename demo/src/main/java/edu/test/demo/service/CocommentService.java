@@ -1,5 +1,7 @@
 package edu.test.demo.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import edu.test.demo.dao.CocommentDAO;
 import edu.test.demo.dao.CommentDAO;
 import edu.test.demo.vo.CocommentVO;
+import edu.test.demo.vo.CommentVO;
 import edu.test.demo.vo.NicknamedCocommentVO;
 import edu.test.demo.vo.NicknamedCommentVO;
 
@@ -41,6 +44,21 @@ public class CocommentService {
 //���� �Է�
 	public int insertCocomment(CocommentVO vo) {
 		return cocommentDAO.insertCocomment(vo);
+	}
+
+//대댓글 삭제하기(status를 2으로 바꿈)
+	public int deleteCocomment(int cocomment_id) {
+		return cocommentDAO.deleteCocomment(cocomment_id);
+	}
+	
+//해당 유저가 받은 coment의 id를 모두 읽어와서 cocomment를 선별
+	public List<List<CocommentVO>> selectCocommentByUserId(int user_id){
+		List<CommentVO> coLi=commentDAO.selectCommentByCommentIdTo(user_id);
+		List<List<CocommentVO>> selected= new ArrayList<List<CocommentVO>>();
+		for (CommentVO commentVO : coLi) {
+			selected.add(cocommentDAO.selectCocommentByCommentId(commentVO.getComment_id()));
+		}
+		return selected;
 	}
 	
 //JSONArray받기 ([{"comment":comment, "cocomment":[cocomment]}])

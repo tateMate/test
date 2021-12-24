@@ -35,4 +35,9 @@ public class CommentService {
 		return commentDAO.insertComment(vo);
 	}
 
+//댓글 삭제하기(status를 2으로 바꿈)	
+	public int deleteComment(int comment_id) {
+		return commentDAO.deleteComment(comment_id);
+	}
+
 }

@@ -22,6 +22,7 @@
 	<select id="selectCommentByCommentIdTo" resultType="CommentVO" parameterType="int" >
 		SELECT * FROM comment
 		WHERE comment_id_to=#{comment_id_to}
+<!-- 		AND comment_status=0 -->
 	</select>
 <!-- 댓글을 받는 사람 아이디로 댓글 목록을 가져옴 ver.nickname -->
 	<select id="selectNicknamedCommentByCommentIdTo" resultType="NicknamedCommentVO" parameterType="int" >
@@ -41,6 +42,12 @@
 		INSERT INTO comment(comment_id, comment_id_to, comment_id_from, comment_contents, comment_time, comment_access, comment_status)
 		VALUES(#{comment_id},#{comment_id_to},#{comment_id_from},#{comment_contents},#{comment_time},#{comment_access},#{comment_status})
 	</insert>
-
+	
+<!-- 댓글 삭제하기(status를 2으로 바꿈) -->
+	<update id="deleteComment" parameterType="int">
+		UPDATE comment
+		SET comment_status=2
+		WHERE comment_id=#{comment_id}
+	</update>
 
 </mapper>

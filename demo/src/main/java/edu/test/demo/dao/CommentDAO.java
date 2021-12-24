@@ -16,5 +16,6 @@ public interface CommentDAO {
 	public NicknamedCommentVO selectNicknamedCommentByCommentId(int comment_id);	//ver nickname
 	public List<CommentVO> selectCommentByCommentIdTo(int comment_id_to);//����� �޴� ��� ���̵�� ��� ����� ������
 	public List<NicknamedCommentVO> selectNicknamedCommentByCommentIdTo(int comment_id_to);//ver nickname
-	public int insertComment(CommentVO commentVO);						//��� �Է�
+	public int insertComment(CommentVO commentVO);	//댓글 입력
+	public int deleteComment(int comment_id);	//댓글 삭제
 }

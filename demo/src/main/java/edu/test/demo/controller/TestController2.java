@@ -41,18 +41,34 @@ public class TestController2 {
 		model.addAttribute("user",userService.selectUserByUserId(user_id));
 		model.addAttribute("character",userCharacterService.selectUserCharacterByUserId(user_id));
 		model.addAttribute("comment", commentService.selectCommentByCommentIdTo(user_id));
+		model.addAttribute("cocomment", cocommentService.selectCocommentByUserId(user_id));
 		return "main/userInfo";
 	}
 //댓글입력
 	@PostMapping("/comment")
-	public String PostComment(CommentVO commentVO){
+	public String PostComment(CommentVO commentVO, HttpSession session){
 		commentService.insertComment(commentVO);
 		return "main/success";
 	}
+//댓글 삭제(해당 댓글의 status를 2로 바꿈)
+	@PostMapping("/delco")
+	public String deleteComment(int comment_id) {
+		commentService.deleteComment(comment_id);
+		return "main/success";
+	}
+	
 //대댓글입력
 	@PostMapping("/cocomment")
-	public String PostCocomment(CocommentVO cocommentVO){
+	public String PostCocomment(CocommentVO cocommentVO, HttpSession session){
+		System.out.println("대댓글 쓴 이(로그인 중인 id):"+cocommentVO.getCocomment_id_from());
+		System.out.println("cocomment id:"+cocommentVO.getCocomment_id()+"/cocomment id:"+cocommentVO.getComment_id());
 		cocommentService.insertCocomment(cocommentVO);
+		return "main/success";
+	}
+//대댓글 삭제(해당 대댓글의 status를 2로 바꿈)
+	@PostMapping("/delcoco")
+	public String deleteCocomment(int cocomment_id) {
+		cocommentService.deleteCocomment(cocomment_id);
 		return "main/success";
 	}
 	
