@@ -44,6 +44,31 @@ public class TestController2 {
 		model.addAttribute("cocomment", cocommentService.selectCocommentByUserId(user_id));
 		return "main/userInfo";
 	}
+<<<<<<< HEAD
+=======
+
+//modify user info
+	@GetMapping("/userinfo/modify")
+	public String modifyUserInfoPage(HttpSession session, @RequestParam Integer user_id) {
+		//if you are not the user, you can't modify information
+		int session_user_id = ((UserVO)session.getAttribute("user")).getUser_id();
+		if(session_user_id == user_id)
+			return "main/userModify";
+		else
+			return "main/fail";
+	}
+	@PostMapping("/userinfo/modify")
+	public String modifyUserInfo(UserVO userVO, UserCharacterVO userCharacterVO, HttpSession session, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) {
+		try {
+			userService.modifyUser(userVO,userCharacterVO,session, request, file);
+			return "main/success";
+		}catch (Exception e) {
+			System.out.println(e);
+			return "main/fail";
+		}
+	}
+	
+>>>>>>> 479869e... 211224 session userCharacter, modify file check, comment/cocomment user check
 //댓글입력
 	@PostMapping("/comment")
 	public String PostComment(CommentVO commentVO, HttpSession session){
@@ -52,9 +77,30 @@ public class TestController2 {
 	}
 //댓글 삭제(해당 댓글의 status를 2로 바꿈)
 	@PostMapping("/delco")
+<<<<<<< HEAD
 	public String deleteComment(int comment_id) {
 		commentService.deleteComment(comment_id);
 		return "main/success";
+=======
+	public String deleteComment(HttpSession session, int comment_id) {
+		//	I'm so sorry but I love you. Doing test is so menndoukusai. 
+		//	de I don't do test this yet.
+		try {
+			//if you are not the user who commented this comment, you can't delete
+			int session_user_id = ((UserVO)session.getAttribute("user")).getUser_id();
+			int user_id = commentService.selectCommentByCommentId(comment_id).getComment_id_from();
+			if(session_user_id==user_id) {
+				commentService.deleteComment(comment_id);
+				return "main/success";
+			}else {
+				System.out.println("YOU. ARE. NOT. THE. USER!");
+				return "main/fail";
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+			return "main/fail";
+		}
+>>>>>>> 479869e... 211224 session userCharacter, modify file check, comment/cocomment user check
 	}
 	
 //대댓글입력
@@ -67,9 +113,30 @@ public class TestController2 {
 	}
 //대댓글 삭제(해당 대댓글의 status를 2로 바꿈)
 	@PostMapping("/delcoco")
+<<<<<<< HEAD
 	public String deleteCocomment(int cocomment_id) {
 		cocommentService.deleteCocomment(cocomment_id);
 		return "main/success";
+=======
+	public String deleteCocomment(HttpSession session, int cocomment_id) {
+			//	I'm so sorry but I love you. Doing test is so menndoukusai. 
+			//	de, I don't do test this yet.
+		try {
+			//if you are not the user who commented this comment, you can't delete
+			int session_user_id = ((UserVO)session.getAttribute("user")).getUser_id();
+			int user_id = cocommentService.selectCocommentByCocommentId(cocomment_id).getCocomment_id_from();
+			if(session_user_id==user_id) {
+				cocommentService.deleteCocomment(cocomment_id);
+				return "main/success";
+			}else {
+				System.out.println("YOU. ARE. NOT. THE. USER!");
+				return "main/fail";
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+			return "main/fail";
+		}
+>>>>>>> 479869e... 211224 session userCharacter, modify file check, comment/cocomment user check
 	}
 	
 //회원가입
@@ -94,11 +161,11 @@ public class TestController2 {
 	@PostMapping("/login")
 	public String loginPost(String user_email, String user_pw, HttpSession session) {
 		UserVO user = userService.loginCheck(user_email, user_pw); 
-		System.out.println(user_email +" / "+ user_pw);
 		if (user == null) {
 			return "main/fail";
 		}else {
 			session.setAttribute("user", user);
+			session.setAttribute("userCharacter", userCharacterService.selectUserCharacterByUserId(user.getUser_id()));
 			return "main/success";
 		}
 		

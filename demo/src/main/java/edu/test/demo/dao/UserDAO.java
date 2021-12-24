@@ -16,4 +16,10 @@ public interface UserDAO {
 	public UserVO selectUserByUserId(int user_id);		//user id�� user����
 	public int insertUser(UserVO vo);					//ȸ������
 	public UserVO selectUserLogin(Map<String, String> id_pass);//�α�
+<<<<<<< HEAD
+=======
+	public int modifyUser(UserVO vo);		//modify user
+	public UserVO emailCheck(String email);			//	email check
+	public UserVO nicknameCheck(String nickname);	//	nickname check
+>>>>>>> 479869e... 211224 session userCharacter, modify file check, comment/cocomment user check
 }

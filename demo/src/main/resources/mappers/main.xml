@@ -26,7 +26,27 @@
 		WHERE user_email = #{user_email}
 		AND user_pw = #{user_pw}   
 	</select>
+<<<<<<< HEAD
+=======
+	
+<!-- 	유저 수정 -->
+	<update id="modifyUser" parameterType="UserVO">
+		UPDATE USER
+		SET user_nickname=#{user_nickname},user_nationality=#{user_nationality},user_age=#{user_age},user_smoking=#{user_smoking},user_vaccine=#{user_vaccine},user_room=#{user_room},user_matching=#{user_matching},user_profile=#{user_profile}
+		WHERE user_id=#{user_id}
+	</update>
+	
+	
+<!-- email check -->
+	<select id = "emailCheck" resultType="UserVO"  parameterType="String">
+		SELECT * FROM user WHERE user_email = #{email}
+	</select>
+>>>>>>> 479869e... 211224 session userCharacter, modify file check, comment/cocomment user check
 
+<!-- nickname check -->
+	<select id = "nicknameCheck" resultType="UserVO"  parameterType="String">
+		SELECT * FROM user WHERE user_nickname = #{nickname}
+	</select>
 <!-- select 
 	<select id = "methodID" resultType="returnType"  parameterType="parameterType">
 		SELECT * FROM table WHERE admin_ID  = #{parameterName}
