@@ -22,6 +22,7 @@
 <body>
 	<h1>${user.user_nickname}의 info page</h1>
 	<button onclick="location.href='http://localhost:8080/login'">로그인</button>
+	<p style="display:inline-block">${sessionScope.user.user_nickname}(id:${sessionScope.user.user_id})로 로그인중</p>
 	<hr>
 	<div class="this">
 		<div>
@@ -59,14 +60,15 @@
 					</c:if>
 					<c:if test="${comment.comment_status==0}" ><tr>
 						<td>${comment.comment_id_from}</td>
-						<td onclick="setcocommentname(${comment.comment_id})">${comment.comment_contents}</td>
+						<td onclick="setcocommentname(${comment.comment_id})" id="contents_modify_zone">${comment.comment_contents}</td>
 						<td>${comment.comment_time}</td>
 						<td>
 							<form action="delco" method="post">
 								<input type="hidden" name="comment_id" value="${comment.comment_id}">
-								<button type="submit">del</button>
+								<button type="submit" >del</button>
 							</form>
 						</td>
+						<td><button onclick="modco(${comment.comment_id})" >mod</button></td>
 					</tr></c:if>
 <!-- 대댓글 zone -->
 					<c:forEach var="cocomment" items="${cocomment[status.index]}">
@@ -110,6 +112,9 @@
 	function setcocommentname(commentid){
 		document.getElementById("inputcocomment").style.cssText = "display:inline-block;"
 		document.getElementById("commentid").value=commentid
+	}
+	function modco(id){
+		document.getElementById("contents_modify_zone").innerHTML="<input type="text"></input>"		
 	}
 </script>
 

@@ -42,4 +42,11 @@
 		SET cocomment_status=2
 		WHERE cocomment_id=#{cocomment_id}
 	</update>
+	
+<!-- 대댓글 수정하기(내용 수정) -->
+	<update id="modifyCocomment" parameterType="map">
+		UPDATE cocomment
+		SET cocomment_contents=#{cocomment_contents}
+		WHERE cocomment_id=#{cocomment_id}
+	</update>
 </mapper>

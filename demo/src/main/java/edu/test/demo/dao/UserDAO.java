@@ -17,4 +17,6 @@ public interface UserDAO {
 	public int insertUser(UserVO vo);					//ȸ������
 	public UserVO selectUserLogin(Map<String, String> id_pass);//�α�
 	public int modifyUser(UserVO vo);		//modify user
+	public UserVO emailCheck(String email);			//	email check
+	public UserVO nicknameCheck(String nickname);	//	nickname check
 }

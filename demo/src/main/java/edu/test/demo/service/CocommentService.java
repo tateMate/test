@@ -1,8 +1,11 @@
 package edu.test.demo.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,35 +26,35 @@ public class CocommentService {
 	@Autowired
 	CommentDAO commentDAO;
 	
-//���� ���̵�� Ư�� ���� 1���� �޾ƿ�
+//select cocomment.  by PK(cocommentId)
 	public CocommentVO selectCocommentByCocommentId(int cocomment_id) {
 		return cocommentDAO.selectCocommentByCocommentId(cocomment_id);
 	}
-//ver nickname
+//select cocomment.  by PK(cocommentId) nickname version
 	public NicknamedCocommentVO selectNicknamedCocommentByCocommentId(int cocomment_id) {
 		return cocommentDAO.selectNicknamedCocommentByCocommentId(cocomment_id);
 	}
 
-//��� ���̵�� ���� ����Ʈ�� �޾ƿ�
+//select cocomments(List). by commentID
 	public List<CocommentVO> selectCocommentByCommentId(int comment_id) {
 		return cocommentDAO.selectCocommentByCommentId(comment_id);
 	}
-//ver nickname
+//select cocomments(List). by commentID nickname version
 	public List<NicknamedCocommentVO> selectNicknamedCocommentByCommentId(int comment_id) {
 		return cocommentDAO.selectNicknamedCocommentByCommentId(comment_id);
 	}
 
-//���� �Է�
+//insert cocomment
 	public int insertCocomment(CocommentVO vo) {
 		return cocommentDAO.insertCocomment(vo);
 	}
 
-//대댓글 삭제하기(status를 2으로 바꿈)
+//대댓글 삭제하기(status를 2으로 바꿈) delete cocomment(change status 2)
 	public int deleteCocomment(int cocomment_id) {
 		return cocommentDAO.deleteCocomment(cocomment_id);
 	}
 	
-//해당 유저가 받은 coment의 id를 모두 읽어와서 cocomment를 선별
+//해당 유저가 받은 comment의 id를 모두 읽어와서 cocomment를 선별
 	public List<List<CocommentVO>> selectCocommentByUserId(int user_id){
 		List<CommentVO> coLi=commentDAO.selectCommentByCommentIdTo(user_id);
 		List<List<CocommentVO>> selected= new ArrayList<List<CocommentVO>>();
@@ -75,7 +78,24 @@ public class CocommentService {
 		return ja;
 	}
 	
-	
+//대댓글 수정하기 change cocomment
+	public int modifyComment(int cocomment_id, String cocomment_contents) {
+		CocommentVO originCocomment = cocommentDAO.selectCocommentByCocommentId(cocomment_id);	//	기존 대댓글		origin
+		CocommentVO newCocomment = new CocommentVO();	//	수정 대댓글		modified
+		newCocomment.setComment_id(originCocomment.getComment_id());
+		newCocomment.setCocomment_id_from(originCocomment.getCocomment_id_from());
+		newCocomment.setCocomment_contents(originCocomment.getCocomment_contents());
+		newCocomment.setCocomment_time(originCocomment.getCocomment_time());
+		newCocomment.setCocomment_status(originCocomment.getCocomment_status());
+		
+		cocomment_contents += "("+Timestamp.valueOf(LocalDateTime.now())+"에 수정됨)";	//	기존대댓글에 시간 추가 origin contents + modifying time
+		Map<String,Object> idAndContents = new HashMap<>();
+		idAndContents.put("cocomment_id", cocomment_id);
+		idAndContents.put("cocomment_contents", cocomment_contents);
+		//수정 대댓글 추가 + 기존 대댓글 수정		new insert, origin modify 
+		int rst = cocommentDAO.insertCocomment(newCocomment) + cocommentDAO.modifyCocomment(idAndContents);
+		return rst;
+	}
 	
 	
 	
