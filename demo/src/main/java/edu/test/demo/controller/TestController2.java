@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.SessionScope;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.test.demo.service.CocommentService;
@@ -69,7 +70,7 @@ public class TestController2 {
 	public String modifyUserInfo(Model model, UserVO userVO, UserCharacterVO userCharacterVO, HttpSession session, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) {
 		try {
 			userService.modifyUser(userVO,userCharacterVO,session, request, file);
-			return "main/success";
+			return "redirect:/userinfo?user_id="+((UserVO)session.getAttribute("user")).getUser_id();
 		}catch (Exception e) {
 			model.addAttribute("msg",e);
 			System.out.println(e);
@@ -82,7 +83,7 @@ public class TestController2 {
 	public String PostComment(Model model, CommentVO commentVO){
 		try {
 			commentService.insertComment(commentVO);
-			return "main/success";
+			return "redirect:/userinfo?user_id="+commentVO.getComment_id_to();
 		}catch (Exception e) {
 			model.addAttribute("msg",e);
 			System.out.println(e);

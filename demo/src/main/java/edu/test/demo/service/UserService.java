@@ -55,7 +55,6 @@ public class UserService {
 	
 //modify user info
 	public int modifyUser(UserVO userVO, UserCharacterVO userCharacterVO, HttpSession session, HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
-		
 		userCharacterDAO.modifyUserCharacter(userCharacterVO);
 		if(file.getContentType().contains("octet-stream")) {
 			userVO.setUser_profile(((UserVO)session.getAttribute("user")).getUser_profile());
