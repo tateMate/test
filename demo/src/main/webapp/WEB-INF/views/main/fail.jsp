@@ -11,5 +11,8 @@
 	<hr>
 	<a href="http://localhost:8080/main">main으로</a>
 	<a href="http://localhost:8080/userinfo?user_id=1">회원정보</a><br>
+	<div>
+	${msg}
+	</div>
 </body>
 </html>

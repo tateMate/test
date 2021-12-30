@@ -1,11 +1,11 @@
 package edu.test.demo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import edu.test.demo.vo.CocommentVO;
 import edu.test.demo.vo.CommentVO;
 import edu.test.demo.vo.NicknamedCommentVO;
 
@@ -18,4 +18,5 @@ public interface CommentDAO {
 	public List<NicknamedCommentVO> selectNicknamedCommentByCommentIdTo(int comment_id_to);//ver nickname
 	public int insertComment(CommentVO commentVO);	//댓글 입력
 	public int deleteComment(int comment_id);	//댓글 삭제
+	public int modifyComment(Map<String, Object> idAndContents);	//댓글 수정
 }

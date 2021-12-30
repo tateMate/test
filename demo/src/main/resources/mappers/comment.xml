@@ -50,4 +50,11 @@
 		WHERE comment_id=#{comment_id}
 	</update>
 
+<!-- 댓글 수정하기(내용 수정) -->
+	<update id="modifyComment" parameterType="map">
+		UPDATE comment
+		SET comment_contents=#{comment_contents}, comment_time=#{comment_time}
+		WHERE comment_id=#{comment_id}
+	</update>
+
 </mapper>

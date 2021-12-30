@@ -17,4 +17,5 @@ public interface CocommentDAO {
 	public List<NicknamedCocommentVO> selectNicknamedCocommentByCommentId(int comment_id);// ver nickname
 	public int insertCocomment(CocommentVO vo);		//대댓글 입력
 	public int deleteCocomment(int cocomment_id);	//대댓글 삭제
+	public int modifyCocomment(Map<String, Object> idAndContents);	//대댓글 수정
 }
