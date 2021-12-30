@@ -19,4 +19,5 @@ public interface UserDAO {
 	public int modifyUser(UserVO vo);		//modify user
 	public UserVO emailCheck(String email);			//	email check
 	public UserVO nicknameCheck(String nickname);	//	nickname check
+	public List<UserVO> selectRcmdUserByUserId(int user_id);	//recommend user
 }

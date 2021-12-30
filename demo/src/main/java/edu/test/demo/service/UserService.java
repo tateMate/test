@@ -117,7 +117,14 @@ public class UserService {
 		id_pass.put("user_pw", shalize(user_email+user_pw));
 		return userDAO.selectUserLogin(id_pass);
 	}
-	
+//Recommend User by UserId
+	public List<UserVO> selectRcmdUserByUserId(int user_id) {
+		
+		
+		
+		
+		return userDAO.selectRcmdUserByUserId(user_id);
+	}
 //pw ��ȣȭ(SHA256�̿�)
 	private String shalize(String pw) {
 		String sha = null;
@@ -137,4 +144,5 @@ public class UserService {
 		return sha;
 
 	}
+
 }

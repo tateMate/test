@@ -40,6 +40,7 @@ h1 {
 		</c:otherwise>
 	</c:choose>
 	<hr>
+	<img src="../../../IMG/${sessionScope.user.user_profile}" height="300">
 <!-- user info zone -->
 	<div class="this">
 		<div>
@@ -118,7 +119,7 @@ h1 {
 							</c:when>
 							<c:when test="${cocomment.cocomment_status==0}">
 								<c:choose>
-									<c:when ${comment.comment_access==0 or sessionScope.user.user_id==comment.comment_id_to or sessionScope.user.user_id==comment.comment_id_from}>
+									<c:when test="${comment.comment_access==0 or sessionScope.user.user_id==comment.comment_id_to or sessionScope.user.user_id==comment.comment_id_from}">
 										<tr>
 											<td colspan="2" id="cocomment_modify_zone${cocomment.cocomment_id}">ㄴ ${cocomment.cocomment_id_from} <em>${cocomment.cocomment_contents}</em>
 											</td><td>	

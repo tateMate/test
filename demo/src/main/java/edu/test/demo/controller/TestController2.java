@@ -34,7 +34,8 @@ public class TestController2 {
 	CocommentService cocommentService;
 //test main page
 	@GetMapping("/main")
-	public String testpage() {
+	public String testpage(Model model, HttpSession session) {
+		model.addAttribute("rcmd",userService.selectRcmdUserByUserId(((UserVO)(session.getAttribute("user"))).getUser_id()));
 		return "main/testmain";
 	}
 	
