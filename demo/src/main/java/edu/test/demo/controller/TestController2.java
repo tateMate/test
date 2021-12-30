@@ -1,19 +1,16 @@
 package edu.test.demo.controller;
 
 import java.io.*;
-import java.lang.ProcessBuilder.Redirect;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.WebProperties.Resources.Chain.Strategy.Content;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.JavaScriptUtils;
 
 import edu.test.demo.service.CocommentService;
 import edu.test.demo.service.CommentService;
@@ -54,11 +51,17 @@ public class TestController2 {
 	@GetMapping("/userinfo/modify")
 	public String modifyUserInfoPage(Model model,HttpSession session, @RequestParam Integer user_id) {
 		//if (login user != targeted user)can't modify information
-		int session_user_id = ((UserVO)session.getAttribute("user")).getUser_id();
-		if(session_user_id == user_id)
-			return "main/userModify";
-		else {
-			model.addAttribute("msg","Unauthorized User!");
+		try {
+			int session_user_id = ((UserVO) session.getAttribute("user")).getUser_id();
+			if (session_user_id == user_id)
+				return "main/userModify";
+			else {
+				model.addAttribute("msg", "Unauthorized User!");
+				return "main/fail";
+			}
+		} catch (Exception e) {
+			model.addAttribute("msg", e);
+			System.out.println(e);
 			return "main/fail";
 		}
 	}
@@ -76,7 +79,7 @@ public class TestController2 {
 	
 //댓글입력
 	@PostMapping("/comment")
-	public String PostComment(Model model, CommentVO commentVO, HttpSession session){
+	public String PostComment(Model model, CommentVO commentVO){
 		try {
 			commentService.insertComment(commentVO);
 			return "main/success";
@@ -132,7 +135,7 @@ public class TestController2 {
 	
 //대댓글입력
 	@PostMapping("/cocomment")
-	public String PostCocomment(CocommentVO cocommentVO, HttpSession session){
+	public String PostCocomment(CocommentVO cocommentVO){
 		System.out.println("대댓글 쓴 이(로그인 중인 id):"+cocommentVO.getCocomment_id_from());
 		System.out.println("cocomment id:"+cocommentVO.getCocomment_id()+"/cocomment id:"+cocommentVO.getComment_id());
 		cocommentService.insertCocomment(cocommentVO);
@@ -204,7 +207,7 @@ public class TestController2 {
 	public String loginPost(Model model, String user_email, String user_pw, HttpSession session) {
 		UserVO user = userService.loginCheck(user_email, user_pw); 
 		if (user == null) {
-			model.addAttribute("msg","Log In First");
+			model.addAttribute("msg","ID와 비밀번호를 확인해주세요");
 			return "main/fail";
 		}else {
 			session.setAttribute("user", user);

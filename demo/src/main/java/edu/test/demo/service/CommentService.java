@@ -2,6 +2,7 @@ package edu.test.demo.service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,13 +54,14 @@ public class CommentService {
 		newComment.setComment_access(originComment.getComment_access());
 		newComment.setComment_status(1);
 		
-		comment_contents += "("+Timestamp.valueOf(LocalDateTime.now())+"에 수정됨)";	//	기존댓글에 시간 추가 origin contents + modifying time
+		comment_contents += "("+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy-MM-dd HH시 mm분"))+"에 수정됨)";	//	기존대댓글에 시간 추가 origin contents + modifying time
 		Map<String,Object> idAndContents = new HashMap<>();
 		idAndContents.put("comment_id", comment_id);
 		idAndContents.put("comment_contents", comment_contents);
+		idAndContents.put("comment_time", originComment.getComment_time());
 		//수정 댓글 추가 + 기존 댓글 수정		new insert, origin modify 
 		int rst = commentDAO.insertComment(newComment) + commentDAO.modifyComment(idAndContents);
 		return rst;
 	}
-
+	
 }

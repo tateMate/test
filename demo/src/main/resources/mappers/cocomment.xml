@@ -46,7 +46,7 @@
 <!-- 대댓글 수정하기(내용 수정) -->
 	<update id="modifyCocomment" parameterType="map">
 		UPDATE cocomment
-		SET cocomment_contents=#{cocomment_contents}
+		SET cocomment_contents=#{cocomment_contents}, cocomment_time=#{cocomment_time}
 		WHERE cocomment_id=#{cocomment_id}
 	</update>
 </mapper>
