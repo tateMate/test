@@ -35,7 +35,10 @@ public class TestController2 {
 //test main page
 	@GetMapping("/main")
 	public String testpage(Model model, HttpSession session) {
-		model.addAttribute("rcmd",userService.selectRcmdUserByUserId(((UserVO)(session.getAttribute("user"))).getUser_id()));
+		if(session.getAttribute("user")!=null) {
+			model.addAttribute("rcmd",userCharacterService.sameCharacter((UserCharacterVO)(session.getAttribute("userCharacter"))) );
+		}
+		//model.addAttribute("rcmd",userService.selectRcmdUserByUserId(((UserVO)(session.getAttribute("user"))).getUser_id()));
 		return "main/testmain";
 	}
 	

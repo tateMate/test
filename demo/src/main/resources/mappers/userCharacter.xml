@@ -13,5 +13,15 @@
 		SET cleanliness=#{cleanliness},wakeup_time=#{wakeup_time},sleep_time=#{sleep_time},cooking_frequency=#{cooking_frequency},chatter=#{chatter},snoring=#{snoring},mbti=#{mbti}
 		WHERE user_id=#{user_id}
 	</update>
+	
+<!-- 	recommend based on character -->
+	<select id="sameCharacter" resultType="int" parameterType="UserCharacterVO">
+		SELECT user_id
+<!-- 		 , ABS(cleanliness-#{cleanliness})+ABS(wakeup_time-#{wakeup_time})+ABS(sleep_time-#{sleep_time})+ABS(cooking_frequency-#{cooking_frequency})+ABS(chatter-#{chatter})+ABS(snoring-#{snoring}) AS score -->
+		FROM user_character
+		WHERE user_id!=#{user_id}
+		ORDER BY ABS(cleanliness-#{cleanliness})+ABS(wakeup_time-#{wakeup_time})+ABS(sleep_time-#{sleep_time})+ABS(cooking_frequency-#{cooking_frequency})+ABS(chatter-#{chatter})+ABS(snoring-#{snoring})
+		LIMIT 5
+	</select>
 
 </mapper>

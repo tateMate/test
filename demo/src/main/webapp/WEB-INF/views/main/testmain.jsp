@@ -14,7 +14,8 @@
 	<a href="http://localhost:8080/join">회원가입 test</a><br>
 	<a href="http://localhost:8080/userinfo?user_id=1">회원정보</a><br>
 	<hr>
-		<h1 style="font-size:150px;">대충 TATEMATE 로고 크게 박힘</h1>
+		<h1 style="font-size:150px;">TATEMATE</h1>
+		<h6>따떼마떼</h6>
 	<hr>
 <!-- recommend room-mate zone -->
 	<c:choose>
@@ -24,9 +25,11 @@
 		<c:otherwise>
 			<c:forEach var="rcmd" items="${rcmd}">
 				<h1>${rcmd.user_id}</h1>
+				<h1>nickname: ${rcmd.user_nickname}</h1>
+				<h1>user_gender:${rcmd.user_gender}</h1>
+				<h1>pw: ${rcmd.user_pw}</h1>
 				<br>
 			</c:forEach>
-			<p>로그인은 했으나 이걸 어째, 아직 서비스 구현을 못해보렸넹 힣</p>
 		</c:otherwise>
 	</c:choose>
 	

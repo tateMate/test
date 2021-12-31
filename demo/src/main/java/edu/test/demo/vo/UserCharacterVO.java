@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCharacterVO {
- private String user_id;
+ private int user_id;
  private int cleanliness;
  private int wakeup_time;
  private int sleep_time;
