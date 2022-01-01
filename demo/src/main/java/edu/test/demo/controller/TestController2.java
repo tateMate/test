@@ -205,12 +205,13 @@ public class TestController2 {
 	}
 //회원가입 시 email 중복 체크
 	@PostMapping("/emailChk")
-	public String UserEmailCHK(String user_email,HttpServletRequest request, HttpServletResponse res) {
-		request.setAttribute("bol", userService.emailCheck(user_email));
-		request.setAttribute("test", "testtest");
-		System.out.println(request.getAttribute("bol"));
-		System.out.println(userService.emailCheck(user_email));
-		return "redirect:join";
+	@ResponseBody
+	public boolean UserEmailCHK(String user_email,HttpServletRequest request, HttpServletResponse res) {
+//		request.setAttribute("bol", userService.emailCheck(user_email));
+//		request.setAttribute("test", "testtest");
+//		System.out.println(request.getAttribute("bol"));
+//		System.out.println(userService.emailCheck(user_email));
+		return userService.emailCheck(user_email);
 	}
 
 //로그인

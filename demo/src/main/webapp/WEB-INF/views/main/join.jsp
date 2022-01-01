@@ -40,9 +40,12 @@
 			url:"emailChk",
 			type:"post",
 			data:{user_email:user_email.value},
-  			dataType:"text",
-			success:function(data){
-				console.dir(data);
+  			dataType:"json",
+			success:function(d){
+				
+				console.dir(d);
+				if(d) alert("사용가능")
+				else alert("중복된 이메일입니다")
 			}
 			
 		});
