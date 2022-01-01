@@ -93,6 +93,7 @@ public class UserService {
 			rst = true;
 		}
 		return rst;
+//false==중복있음, true==사용 가능한 email
 	}
 	
 	//password check

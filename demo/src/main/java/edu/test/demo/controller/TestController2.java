@@ -1,9 +1,11 @@
 package edu.test.demo.controller;
 
 import java.io.*;
+import java.net.http.HttpResponse;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -200,6 +202,15 @@ public class TestController2 {
 		System.out.println(file.getContentType());
 		userService.insertUser(vo, request, file);
 		return "main/success";
+	}
+//회원가입 시 email 중복 체크
+	@PostMapping("/emailChk")
+	public String UserEmailCHK(String user_email,HttpServletRequest request, HttpServletResponse res) {
+		request.setAttribute("bol", userService.emailCheck(user_email));
+		request.setAttribute("test", "testtest");
+		System.out.println(request.getAttribute("bol"));
+		System.out.println(userService.emailCheck(user_email));
+		return "redirect:join";
 	}
 
 //로그인

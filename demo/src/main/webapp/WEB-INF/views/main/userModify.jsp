@@ -10,6 +10,11 @@
 	div{
 		display: inline-block;
 	}
+ 	td{ width:150px;height:20px; 
+ 		white-space:nowrap; 
+ 		border:1px solid black; 
+ 		overflow:hidden; 
+ 	} 
 </style>
 </head>
 <body>
@@ -94,17 +99,17 @@
 				<input type="radio" value="5" name="chatter" ${sessionScope.userCharacter.chatter eq '5' ? 'checked':''}>매우 수다스러움
 			</td></tr>
 			<tr><td colspan='5'>잠버릇(코골이, 이갈이, 몽유병 등)</td></tr><tr><td>
-			<input type="radio" value="1" name="snoring" ${sessionScope.userCharacter.snoring eq '1' ? 'checked':''}>매우 얌전함
+				<input type="radio" value="1" name="snoring" ${sessionScope.userCharacter.snoring eq '1' ? 'checked':''}>매우 얌전함
 			</td><td>
-			<input type="radio" value="2" name="snoring" ${sessionScope.userCharacter.snoring eq '2' ? 'checked':''}>암전함
+				<input type="radio" value="2" name="snoring" ${sessionScope.userCharacter.snoring eq '2' ? 'checked':''}>암전함
 			</td><td>
-			<input type="radio" value="3" name="snoring" ${sessionScope.userCharacter.snoring eq '3' ? 'checked':''}>보통
+				<input type="radio" value="3" name="snoring" ${sessionScope.userCharacter.snoring eq '3' ? 'checked':''}>보통
 			</td><td>
-			<input type="radio" value="4" name="snoring" ${sessionScope.userCharacter.snoring eq '4' ? 'checked':''}>심함
+				<input type="radio" value="4" name="snoring" ${sessionScope.userCharacter.snoring eq '4' ? 'checked':''}>심함
 			</td><td>
-			<input type="radio" value="5" name="snoring" ${sessionScope.userCharacter.snoring eq '5' ? 'checked':''}>매우 심함
+				<input type="radio" value="5" name="snoring" ${sessionScope.userCharacter.snoring eq '5' ? 'checked':''}>매우 심함
 			</td></tr>
-			<tr><td colspan='5'>mbti</td></tr><tr><td>
+			<tr><td>mbti</td><td colspan="4">
 				<input type="text" value="${sessionScope.userCharacter.mbti}" name="mbti">
 			</td></tr>
 		</table></div>

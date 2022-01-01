@@ -20,7 +20,7 @@
 <!-- recommend room-mate zone -->
 	<c:choose>
 		<c:when test="${empty sessionScope.user.user_id}">
-			<p>로그인을 하거나 회원가입을 해주세요. 제발</p>
+			<p><button onclick="location.href='login'">로그인</button>을 하거나 <button onclick="location.href='join'">회원가입</button>을 해주세요. 제발</p>
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="rcmd" items="${rcmd}">
@@ -32,6 +32,8 @@
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
-	
+
+<script>
+</script>
 </body>
 </html>
