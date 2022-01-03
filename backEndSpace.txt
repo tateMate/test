@@ -6,3 +6,13 @@ enum(0=최신 댓글, 1=수정된 댓글, 2=삭제된 댓글)
 수정된 댓글이 status가 0인 상태로 새로 생성된다.
 삭제 시 원 댓글의 status는 2으로 바뀐다.
 staus가 0인 댓글만을 표시하게 한다.
+
+issue
+지역(동까지) 콤보박스 api받아오기
+
+중복확인 누르지 않으면 회원가입 진행 불가
+
+enum(user character) String으로 받아오기
+user character.js->import
+
+ERD/SQL 최신 업데이트

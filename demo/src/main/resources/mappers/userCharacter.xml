@@ -24,4 +24,12 @@
 		LIMIT 5
 	</select>
 
+<!--insert user character -->
+   <insert id="insertUserCharacter" parameterType="UserCharacterVO">
+      INSERT INTO USER_CHARACTER(user_id,cleanliness,wakeup_time,sleep_time,cooking_frequency,chatter,snoring,mbti)
+      VALUES ((SELECT LAST_INSERT_ID()),#{cleanliness},#{wakeup_time},#{sleep_time},#{cooking_frequency},#{chatter},#{snoring},#{mbti});
+   </insert>
+	
+	
+
 </mapper>

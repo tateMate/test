@@ -9,47 +9,128 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
 	#room_des{color:red;}
+	div{
+		display: inline-block;
+	}
 </style>
 </head>
 <body>
 	<h1 style="display:inline-block;">회원가입</h1><button onclick="location.href='main'">메인으로</button>
 	<hr>
+<!-- 	user VO form  zone-->
 	<form role="form" action="join" method="post" enctype="multipart/form-data">
-		<table>
-		<tr><td>*email:</td><td><input type="text" name="user_email" id="user_email"><br></td></tr>
-		<tr><td></td><td><input type="button" value="중복체크" onclick="chkid()"></input></td></tr>
-		<tr><td>*password:</td><td><input type="password" name=user_pw></td></tr>
-		<tr><td>*nickname:</td><td><input type="text" name=user_nickname></td></tr>
-		<tr><td>*gender:</td><td><input type="radio" value="0" name=user_gender>남
-			<input type="radio" value="1" name=user_gender>여</td></tr>
-		<tr><td>*nationality:</td><td><input type="text" name=user_nationality></td></tr>
-		<tr><td>*age:</td><td><input type="number" name=user_age></td></tr>
-		<tr><td>*smoking:</td><td><input type="radio" value="0" name=user_smoking>비흡연
-			<input type="radio" value="1" name=user_smoking>흡연</td></tr>
-		<tr><td>*vaccine:</td><td><input type="number" name=user_vaccine></td></tr>
-		<tr><td>*room:</td><td><input type="radio" value="0" name=user_room onclick="nasi()">없음
-			<input type="radio" value="1" name=user_room onclick="ari()">있음</td></tr>
-		<tr><td>지역:</td><td><select name="addressRegion" id="addressRegion1"></select>
-	    <select name="addressDo" id="addressDo1"></select>
-	    <select name="addressSiGunGu" id="addressSiGunGu1" onchange="inputad(addressRegion1.value,addressDo1.value,this.value)"></select>
-		<input type="hidden" id="location" name=user_location value=""></input>
+		<div><table>
+			<tr><td>*email:</td><td><input onchange="echg()" required type="text" name="user_email" id="user_email"><br></td></tr>
+			<tr><td></td><td><button value="" id="echk" onclick="chkid6()">중복체크</button></td></tr>
+			<tr><td>*password:</td><td><input required type="password" name=user_pw></td></tr>
+			<tr><td>*nickname:</td><td><input required type="text" name=user_nickname></td></tr>
+			<tr><td>*gender:</td><td><input required type="radio" value="0" name=user_gender>남
+				<input type="radio" value="1" name=user_gender>여</td></tr>
+			<tr><td>*nationality:</td><td><input required type="text" name=user_nationality></td></tr>
+			<tr><td>*age:</td><td><input required type="number" name=user_age></td></tr>
+			<tr><td>*smoking:</td><td><input required type="radio" value="0" name=user_smoking>비흡연
+				<input type="radio" value="1" name=user_smoking>흡연</td></tr>
+			<tr><td>*vaccine:</td><td><input required type="number" name=user_vaccine></td></tr>
+			<tr><td>*room:</td><td><input required type="radio" value="0" name=user_room onclick="nasi()">없음
+				<input type="radio" value="1" name=user_room onclick="ari()">있음</td></tr>
+			<tr><td>지역:</td><td><select name="addressRegion" id="addressRegion1"></select>
+		    <select name="addressDo" id="addressDo1"></select>
+		    <select name="addressSiGunGu" id="addressSiGunGu1" onchange="inputad(addressRegion1.value,addressDo1.value,this.value)"></select>
+			<input type="hidden" id="location" name=user_location value=""></input>
 		
-		
-		<tr><td></td><td id="room_des"></td></tr>
-		<tr><td>*matching:</td><td><input type="radio" value="0" name=user_matching>원하지 않음
-			<input type="radio" value="1" name=user_matching>원함</td></tr>
-		<tr><td>pet:</td><td><input type="radio" value="0" name=user_matching>있음
-			<input type="radio" value="1" name=user_matching>없음</td></tr>
-		<tr><td>대표사진</td><td colspan="2"><input type="file" name="file"></td></tr>
-		<tr><td>소개글:</td><td><textarea rows="5" cols="30" name="user_intro" placeholder="본인을 간단하게 소개해 주세요."></textarea></tr>
-		<tr><td>원하는 매칭상:</td><td><textarea rows="5" cols="30" name="user_ideal" placeholder="어떤 룸메이트를 원하시나요?"></textarea></tr>
-		<tr><td>sns:</td><td><input type="text" name=user_sns></td></tr>
-		<tr><td><input type="submit" value="가입"></td><td><input style="background-color:red;" type="reset" value="다시쓰자"></td></tr>
-		</table>
+		<!-- 		input location -->
+			
+			<tr><td></td><td id="room_des"></td></tr>
+			<tr><td>*matching:</td><td><input required type="radio" value="0" name=user_matching>원하지 않음
+				<input type="radio" value="1" name=user_matching>원함</td></tr>
+			<tr><td>pet:</td><td><input type="radio" value="0" name=user_matching>있음
+				<input type="radio" value="1" name=user_matching>없음</td></tr>
+			<tr><td>대표사진</td><td colspan="2"><input type="file" name="file"></td></tr>
+			<tr><td>소개글:</td><td><textarea rows="5" cols="30" name="user_intro" placeholder="본인을 간단하게 소개해 주세요."></textarea></tr>
+			<tr><td>원하는 매칭상:</td><td><textarea rows="5" cols="30" name="user_ideal" placeholder="어떤 룸메이트를 원하시나요?"></textarea></tr>
+			<tr><td>sns:</td><td><input type="text" name=user_sns></td></tr>
+			<tr><td><input type="submit" value="가입"></td><td><input style="background-color:red;" type="reset" value="다시쓰자"></td></tr>
+		</table></div>
+<!-- 	user character vo form zone -->
+		<div><table>
+			<tr><td colspan='5'>청결도</td></tr><tr><td>
+				<input type="radio" value="1" name="cleanliness">매우 더러움
+			</td><td>
+				<input type="radio" value="2" name="cleanliness">더러움
+			</td><td>
+				<input type="radio" value="3" name="cleanliness">보통
+			</td><td>
+				<input type="radio" value="4" name="cleanliness">깨끗함
+			</td><td>
+				<input type="radio" value="5" name="cleanliness">매우 깨끗함
+			</td></tr>
+			<tr><td colspan='5'>기상시간</td></tr><tr><td>
+				<input type="radio" value="1" name="wakeup_time">매우 이름
+			</td><td>
+				<input type="radio" value="2" name="wakeup_time">이름
+			</td><td>
+				<input type="radio" value="3" name="wakeup_time">보통
+			</td><td>
+				<input type="radio" value="4" name="wakeup_time">늦음
+			</td><td>
+				<input type="radio" value="5" name="wakeup_time">매우 늦음
+			</td></tr>
+			<tr><td colspan='5'>취침시간</td></tr><tr><td>
+			<input type="radio" value="1" name="sleep_time">매우 이름
+			</td><td>
+			<input type="radio" value="2" name="sleep_time">이름
+			</td><td>
+			<input type="radio" value="3" name="sleep_time">보통
+			</td><td>
+			<input type="radio" value="4" name="sleep_time">늦음
+			</td><td>
+			<input type="radio" value="5" name="sleep_time">매우 늦음
+			</td></tr>
+			<tr><td colspan='5'>요리빈도</td></tr><tr><td>
+				<input type="radio" value="1" name="cooking_frequency">매우 드묾
+			</td><td>
+				<input type="radio" value="2" name="cooking_frequency">드묾
+			</td><td>
+				<input type="radio" value="3" name="cooking_frequency">보통
+			</td><td>
+				<input type="radio" value="4" name="cooking_frequency">빈번함
+			</td><td>
+				<input type="radio" value="5" name="cooking_frequency">매우 빈번함
+			</td></tr>
+			<tr><td colspan='5'>수다력</td></tr><tr><td>
+				<input type="radio" value="1" name="chatter">매우 과묵함
+			</td><td>
+				<input type="radio" value="2" name="chatter">과묵함
+			</td><td>
+				<input type="radio" value="3" name="chatter">보통
+			</td><td>
+				<input type="radio" value="4" name="chatter">수다스러움
+			</td><td>
+				<input type="radio" value="5" name="chatter">매우 수다스러움
+			</td></tr>
+			<tr><td colspan='5'>잠버릇(코골이, 이갈이, 몽유병 등)</td></tr><tr><td>
+				<input type="radio" value="1" name="snoring">매우 얌전함
+			</td><td>
+				<input type="radio" value="2" name="snoring">암전함
+			</td><td>
+				<input type="radio" value="3" name="snoring">보통
+			</td><td>
+				<input type="radio" value="4" name="snoring">심함
+			</td><td>
+				<input type="radio" value="5" name="snoring">매우 심함
+			</td></tr>
+			<tr><td>mbti</td><td colspan="4">
+				<input type="text" name="mbti">
+			</td></tr>
+		</table></div>
 	</form>
+	
+	
+	
 	<br>
 	<hr>
 <script>
+	function echg(){echk.value="";}
 	function inputad(si,gun,gu){
 		document.getElementById("location").value=si+" "+gun+" "+gu;
 		console.log(document.getElementById("location").value);
@@ -69,11 +150,17 @@
   			dataType:"json",
 			success:function(d){
 				console.dir(d);
-				if(d) alert("사용가능")
-				else alert("중복된 이메일입니다")
+				if(d) {
+					alert("사용가능");
+					echk.value="y";
+				}else {
+					alert("중복된 이메일입니다");
+					echk.value="n";
+				}
 			}
 		});
 	}
+	
 // 	api
 $(function(){
     areaSelectMaker("select[name=addressRegion]");

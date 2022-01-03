@@ -198,10 +198,14 @@ public class TestController2 {
 	}
 
 	@PostMapping("/join")
-	public String UserInsertPost(UserVO vo, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
-		System.out.println(file.getContentType());
-		userService.insertUser(vo, request, file);
-		return "main/success";
+	public String UserInsertPost(UserVO vo, UserCharacterVO characterVO, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
+		try {
+			userService.insertUser(vo, request, file);
+			userCharacterService.insertUserCharacter(characterVO);
+			return "redirect:/login";
+		}catch (Exception e) {
+			return "main/fail";
+		}
 	}
 //회원가입 시 email 중복 체크
 	@PostMapping("/emailChk")

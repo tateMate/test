@@ -37,7 +37,7 @@ public class UserService {
 		return userDAO.selectUserByUserId(user_id);
 	}
 	
-//ȸ������(user ����ֱ�)	
+//insert user(join)
 	public int insertUser(UserVO vo, HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
 		if(file.getContentType().contains("octet-stream")) {
 			vo.setUser_profile(null);

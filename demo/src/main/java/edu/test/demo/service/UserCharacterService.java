@@ -32,5 +32,10 @@ public class UserCharacterService {
 		}
 		return ul;
 	}
+
+//insert user character when join
+	public int insertUserCharacter(UserCharacterVO characterVO) {
+		return userCharacterDAO.insertUserCharacter(characterVO);
+	}
 	
 }
