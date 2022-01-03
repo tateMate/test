@@ -18,20 +18,28 @@
 	<h1 style="display:inline-block;">회원가입</h1><button onclick="location.href='main'">메인으로</button>
 	<hr>
 <!-- 	user VO form  zone-->
-	<form role="form" action="join" method="post" enctype="multipart/form-data">
+	<form id="joinform" role="form" method="post" enctype="multipart/form-data">
 		<div><table>
-			<tr><td>*email:</td><td><input onchange="echg()" required type="text" name="user_email" id="user_email"><br></td></tr>
-			<tr><td></td><td><button value="" id="echk" onclick="chkid6()">중복체크</button></td></tr>
+			
+			<tr><td>*email:</td><td><input onchange="echg()"  required type="text" name="user_email" id="user_email">
+			<input type="hidden" id="hiddeninput" value="n" name="hiddeninput"></td></tr>
+				
+				
+			<tr><td></td><td><button onclick="chkid()" id="chkbutton">중복체크</button></td></tr>
+			
+			
+			
+			
 			<tr><td>*password:</td><td><input required type="password" name=user_pw></td></tr>
 			<tr><td>*nickname:</td><td><input required type="text" name=user_nickname></td></tr>
-			<tr><td>*gender:</td><td><input required type="radio" value="0" name=user_gender>남
+			<tr><td>*gender:</td><td><input required type="radio" value="0" name=user_gender	checked		>남
 				<input type="radio" value="1" name=user_gender>여</td></tr>
 			<tr><td>*nationality:</td><td><input required type="text" name=user_nationality></td></tr>
 			<tr><td>*age:</td><td><input required type="number" name=user_age></td></tr>
-			<tr><td>*smoking:</td><td><input required type="radio" value="0" name=user_smoking>비흡연
+			<tr><td>*smoking:</td><td><input required type="radio" value="0" 	checked	name=user_smoking>비흡연
 				<input type="radio" value="1" name=user_smoking>흡연</td></tr>
 			<tr><td>*vaccine:</td><td><input required type="number" name=user_vaccine></td></tr>
-			<tr><td>*room:</td><td><input required type="radio" value="0" name=user_room onclick="nasi()">없음
+			<tr><td>*room:</td><td><input required type="radio"		checked	 value="0" name=user_room onclick="nasi()">없음
 				<input type="radio" value="1" name=user_room onclick="ari()">있음</td></tr>
 			<tr><td>지역:</td><td><select name="addressRegion" id="addressRegion1"></select>
 		    <select name="addressDo" id="addressDo1"></select>
@@ -49,7 +57,7 @@
 			<tr><td>소개글:</td><td><textarea rows="5" cols="30" name="user_intro" placeholder="본인을 간단하게 소개해 주세요."></textarea></tr>
 			<tr><td>원하는 매칭상:</td><td><textarea rows="5" cols="30" name="user_ideal" placeholder="어떤 룸메이트를 원하시나요?"></textarea></tr>
 			<tr><td>sns:</td><td><input type="text" name=user_sns></td></tr>
-			<tr><td><input type="submit" value="가입"></td><td><input style="background-color:red;" type="reset" value="다시쓰자"></td></tr>
+			<tr><td><input type="submit" id="submitbtn" value="가입"></td><td><input style="background-color:red;" type="reset" value="다시쓰자"></td></tr>
 		</table></div>
 <!-- 	user character vo form zone -->
 		<div><table>
@@ -130,7 +138,7 @@
 	<br>
 	<hr>
 <script>
-	function echg(){echk.value="";}
+	function echg(){hiddeninput.value="n";}
 	function inputad(si,gun,gu){
 		document.getElementById("location").value=si+" "+gun+" "+gu;
 		console.log(document.getElementById("location").value);
@@ -152,14 +160,15 @@
 				console.dir(d);
 				if(d) {
 					alert("사용가능");
-					echk.value="y";
+					hiddeninput.value="y";
 				}else {
 					alert("중복된 이메일입니다");
-					echk.value="n";
+					hiddeninput.value="n";
 				}
 			}
 		});
 	}
+	
 	
 // 	api
 $(function(){

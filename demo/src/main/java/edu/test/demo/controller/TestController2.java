@@ -198,12 +198,14 @@ public class TestController2 {
 	}
 
 	@PostMapping("/join")
-	public String UserInsertPost(UserVO vo, UserCharacterVO characterVO, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
+	public String UserInsertPost(String hiddeninput,Model model, UserVO vo, UserCharacterVO characterVO, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
 		try {
+			if(hiddeninput.equals("n")) return "redirect:/join";
 			userService.insertUser(vo, request, file);
 			userCharacterService.insertUserCharacter(characterVO);
 			return "redirect:/login";
 		}catch (Exception e) {
+			model.addAttribute("msg",e);
 			return "main/fail";
 		}
 	}
