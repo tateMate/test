@@ -11,13 +11,12 @@
 body {
 	background-color: gray;
 }
-
-.this {
-	display: flex;
-	width: 500px;
+div {
+	display: inline-block;
+	width: 45%;
 	justify-content: space-between;
 }
-
+img{height: 200px;}
 h1 {
 	display: inline-block;
 }
@@ -39,31 +38,35 @@ h1 {
 			<p style="display: inline-block">${sessionScope.user.user_nickname}(id:${sessionScope.user.user_id})로 로그인중</p>
 		</c:otherwise>
 	</c:choose>
+	<a href="http://localhost:8080/main">main으로</a>
 	<hr>
-	<img src="../../../IMG/${sessionScope.user.user_profile}" height="300">
 <!-- user info zone -->
-	<div class="this">
-		<div>
-			<h3>아이디 :${user.user_email}</h3>
-			<h3>닉네임 :${user.user_nickname}</h3>
-			<h3>성별 :${user.user_gender}</h3>
-			<h3>국적 :${user.user_nationality}</h3>
-			<h3>나이 :${user.user_age}</h3>
-			<h3>백신 :${user.user_vaccine}</h3>
-			<h3>흡연 :${user.user_smoking}</h3>
-			<h3>방 :${user.user_room}</h3>
-			<h3>애완동물 :${user.user_pet}</h3>
-		</div>
-		<div>
-			<p>${user.user_nickname}의character</p>
-			<h3>청결도 :${character.cleanliness}</h3>
-			<h3>기상시간 :${character.wakeup_time}</h3>
-			<h3>취침시간 :${character.sleep_time}</h3>
-			<h3>요리빈도 :${character.cooking_frequency}</h3>
-			<h3>수다력 :${character.chatter}</h3>
-			<h3>잠버릇 :${character.snoring}</h3>
-			<h3>mbti :${character.mbti}</h3>
-		</div>
+	<div style="height:200px;display:block;"><img src="../../../IMG/${user.user_profile}" height="300" alt="등록된 이미지가 없습니다."></div>
+	<div>
+		<h3>아이디 :${user.user_email}</h3>
+		<h3>닉네임 :${user.user_nickname}</h3>
+		<h3 id="gender">성별 : <!-- ${user.user_gender} --></h3>
+		<h3>국적 :${user.user_nationality}</h3>
+		<h3>나이 :${user.user_age}</h3>
+		<h3>백신 :${user.user_vaccine}차 접종 완료 </h3>
+		<h3 id="room">방 : <!-- ${user.user_room}--></h3>
+		<h3>지역 :${user.user_location}</h3>
+		<h3 id="matching">매칭희망여부 : </h3>
+		<h3>소개 :${user.user_intro}</h3>
+		<h3>원하는 매칭상 :${user.user_ideal}</h3>
+		<h3 id="smoking">흡연 : <!--  ${user.user_smoking} --></h3>
+		<h3 id="pet">애완동물 : <!-- ${user.user_pet} --></h3>
+		<h3>sns :<a href="${user.user_sns}">${user.user_sns}</a></h3>
+	</div>
+	<div>
+		<p>${user.user_nickname}의character</p>
+		<h3>청결도 :${character.cleanliness}</h3>
+		<h3>기상시간 :${character.wakeup_time}</h3>
+		<h3>취침시간 :${character.sleep_time}</h3>
+		<h3>요리빈도 :${character.cooking_frequency}</h3>
+		<h3>수다력 :${character.chatter}</h3>
+		<h3>잠버릇 :${character.snoring}</h3>
+		<h3>mbti :${character.mbti}</h3>
 	</div>
 	<c:if test="${sessionScope.user.user_id eq param.user_id}">
 		<button onclick="window.location.href='/userinfo/modify?user_id=${user.user_id}'">회원정보 수정</button>
@@ -71,10 +74,9 @@ h1 {
 	<hr>
 	<div>
 		<h1>comment zone</h1>
-		<div>
+<!-- 댓글 zone -->
 			<table>
 				<c:forEach var="comment" items="${comment}" varStatus="status">
-<!-- 댓글 zone -->
 					<c:choose>
 						<c:when test="${comment.comment_status==2}">
 							<tr>
@@ -146,7 +148,6 @@ h1 {
 					</c:forEach>
 				</c:forEach>
 			</table>
-		</div>
 		<form id="inputcocomment" role="form" action="cocomment" method="post">
 			<input id="commentid" type="hidden" name=comment_id
 				value="${cocoment.coment_id}"> <input type="hidden"
@@ -164,7 +165,6 @@ h1 {
 		</form>
 	</div>
 
-	<a href="http://localhost:8080/main">main으로</a>
 </body>
 <script>
 	console.log
@@ -180,6 +180,19 @@ h1 {
 		var str="<form action='modicoco' method='post'><input type='text' value='"+contents+"' name='cocomment_contents'><input type='hidden' name='cocomment_id' value='"+id+"'><button type='submit'>확인</button></form>";
 		document.getElementById("cocomment_modify_zone"+id).innerHTML=str;
 	}
+	function test(){
+		if(!${user.user_gender}) gender.innerHTML+="여자";
+		else gender.innerHTML+="남자";
+		if(!${user.user_smoking}) smoking.innerHTML+="비흡연";
+		else smoking.innerHTML+="흡연";
+		if(!${user.user_room}) room.innerHTML+="없음";
+		else room.innerHTML+="있음";
+		if(!${user.user_pet}) pet.innerHTML+="없음";
+		else pet.innerHTML+="있음";
+		if(!${user.user_matching}) matching.innerHTML+="<mark>절망</mark>";
+		else matching.innerHTML+="<mark>희망</mark>";
+	}
+	test();
 /*
 	function test(time){
 		alert(time.getClass);

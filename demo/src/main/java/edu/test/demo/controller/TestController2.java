@@ -229,7 +229,7 @@ public class TestController2 {
 		}else {
 			session.setAttribute("user", user);
 			session.setAttribute("userCharacter", userCharacterService.selectUserCharacterByUserId(user.getUser_id()));
-			return "main/success";
+			return "redirect:/userinfo?user_id="+user.getUser_id();
 		}
 		
 	}

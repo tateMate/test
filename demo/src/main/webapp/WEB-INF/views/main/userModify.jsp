@@ -8,11 +8,11 @@
 <title>join</title>
 <style>
 	div{
+		width:45%;
 		display: inline-block;
 	}
  	td{ width:150px;height:20px; 
  		white-space:nowrap; 
- 		border:1px solid black; 
  		overflow:hidden; 
  	} 
 </style>
@@ -22,23 +22,36 @@
 <!-- basic user info zone -->
 		<div>
 			<input type="hidden" value="${sessionScope.user.user_id}" name="user_id">
-			<label>EMAIL:</label>${sessionScope.user.user_email}<br>
-			<label>nickname:</label>
+			<label>아이디:</label>${sessionScope.user.user_email}<br>
+			<label>닉네임:</label>
 			<input value="${sessionScope.user.user_nickname}" type="text" name=user_nickname><br>
-			<label>nationality:</label> <input value="${sessionScope.user.user_nationality}" type="text" name=user_nationality><br>
-			<label>age:</label> <input value="${sessionScope.user.user_age}" type="number" name=user_age><br>
-			<label>smoking:</label>
+			<label>성별:</label>
+			<input type="radio" value="0" name=user_gender ${sessionScope.user.user_gender eq '0' ? 'checked':''}>남자
+			<input type="radio" value="1" name=user_gender ${sessionScope.user.user_gender eq '1' ? 'checked':''}>여자<br>
+			<label>국적:</label> <input value="${sessionScope.user.user_nationality}" type="text" name=user_nationality><br>
+			<label>나이:</label> <input value="${sessionScope.user.user_age}" type="number" name=user_age><br>
+			<label>흡연여부:</label>
 			<input type="radio" value="0" name=user_smoking ${sessionScope.user.user_smoking eq '0' ? 'checked':''}>비흡연
 			<input type="radio" value="1" name=user_smoking ${sessionScope.user.user_smoking eq '1' ? 'checked':''}>흡연<br>
-			<label>vaccine:</label> <input value="${sessionScope.user.user_vaccine}" type="number" name=user_vaccine><br>
+			<label>백신:</label> <input value="${sessionScope.user.user_vaccine}" min="0" max="5" type="number" name=user_vaccine>차 접종 완료<br>
 			<label>room:</label>
 			<input type="radio" value="0" name=user_room ${sessionScope.user.user_room eq '0' ? 'checked':''}>없음
 			<input type="radio" value="1" name=user_room ${sessionScope.user.user_room eq '1' ? 'checked':''}>있음<br>
-			<label>matching:</label>
+			<label>lugar:</label>
+			<input value="${sessionScope.user.user_location}" type="text" name=user_location><br>
+			<label>매칭희망여부:</label>
 			<input type="radio" value="0" name=user_matching ${sessionScope.user.user_matching eq '0' ? 'checked':''}>원하지 않음
 			<input type="radio" value="1" name=user_matching ${sessionScope.user.user_matching eq '1' ? 'checked':''}>원함<br>
+			<label>pet:</label>
+			<input type="radio" value="0" name=user_pet ${sessionScope.user.user_pet eq '0' ? 'checked':''}>없음
+			<input type="radio" value="1" name=user_pet ${sessionScope.user.user_pet eq '1' ? 'checked':''}>있음<br>
+			<label>소개글:</label><textarea rows="5" cols="30" name="user_intro" placeholder="본인을 간단하게 소개해 주세요."><c:out  value="${sessionScope.user.user_intro}" /></textarea><br>
+			<label>매칭상:</label><textarea rows="5" cols="30" name="user_ideal" placeholder="어떤 룸메이트를 원하시나요?">${sessionScope.user.user_ideal}</textarea><br>
+			<label>sns:</label>
+			<input value="${sessionScope.user.user_sns}" type="text" name=user_sns><br>
 			<img src="../../../IMG/${sessionScope.user.user_profile}" height="100"><br>
 			<input type="file" name="file">
+			
 			<br>
 		</div>
 <!-- user character info zone -->

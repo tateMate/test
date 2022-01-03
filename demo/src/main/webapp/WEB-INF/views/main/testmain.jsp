@@ -6,6 +6,17 @@
 <meta charset="UTF-8">
 <title>main page for test</title>
 <style>
+div{
+	border:1px solid black;
+	width:30%;
+	overflow: hidden;
+	display: inline-block;
+	background-color:aliceblue; 
+}
+div:hover{
+	background-color:red;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -24,11 +35,12 @@
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="rcmd" items="${rcmd}">
-				<h1>${rcmd.user_id}</h1>
-				<h1>nickname: ${rcmd.user_nickname}</h1>
-				<h1>user_gender:${rcmd.user_gender}</h1>
-				<h1>pw: ${rcmd.user_pw}</h1>
-				<br>
+				<div onclick="location.href='userinfo?user_id='+${rcmd.user_id}" >
+					<h1>닉네임: ${rcmd.user_nickname}</h1>
+					<h1>성별:${rcmd.user_gender}</h1>
+					<h1>나이:${rcmd.user_age}</h1>
+					<h1>pw: ${rcmd.user_pw}</h1>
+				</div>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>

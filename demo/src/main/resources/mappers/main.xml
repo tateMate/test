@@ -15,8 +15,8 @@
 	
 <!-- 회원가입 -->
 	<insert id="insertUser" parameterType="UserVO">
-		INSERT INTO user(user_email,user_pw,user_nickname,user_gender,user_nationality,user_age,user_smoking,user_vaccine,user_room,user_matching,user_profile)
-		VALUES(#{user_email},#{user_pw},#{user_nickname},#{user_gender},#{user_nationality},#{user_age},#{user_smoking},#{user_vaccine},#{user_room},#{user_matching},#{user_profile})  
+		INSERT INTO user(user_pet,user_intro,user_ideal,user_location,user_sns,user_email,user_pw,user_nickname,user_gender,user_nationality,user_age,user_smoking,user_vaccine,user_room,user_matching,user_profile)
+		VALUES(#{user_pet},#{user_intro},#{user_ideal},#{user_location},#{user_sns},#{user_email},#{user_pw},#{user_nickname},#{user_gender},#{user_nationality},#{user_age},#{user_smoking},#{user_vaccine},#{user_room},#{user_matching},#{user_profile})  
 	</insert>
 
 <!-- 로그인 체크 -->
@@ -30,7 +30,8 @@
 <!-- 	유저 수정 -->
 	<update id="modifyUser" parameterType="UserVO">
 		UPDATE USER
-		SET user_nickname=#{user_nickname},user_nationality=#{user_nationality},user_age=#{user_age},user_smoking=#{user_smoking},user_vaccine=#{user_vaccine},user_room=#{user_room},user_matching=#{user_matching},user_profile=#{user_profile}
+		SET user_nickname=#{user_nickname},user_nationality=#{user_nationality},user_age=#{user_age},user_smoking=#{user_smoking},user_vaccine=#{user_vaccine}
+			,user_room=#{user_room},user_matching=#{user_matching},user_profile=#{user_profile},user_pet=#{user_pet},user_intro=#{user_intro},user_ideal=#{user_ideal},user_location=#{user_location},user_sns=#{user_sns}
 		WHERE user_id=#{user_id}
 	</update>
 	
