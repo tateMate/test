@@ -8,7 +8,7 @@
 <style>
 div{
 	border:1px solid black;
-	width:30%;
+	width:18%;
 	overflow: hidden;
 	display: inline-block;
 	background-color:aliceblue; 

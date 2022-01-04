@@ -167,7 +167,12 @@ h1 {
 
 </body>
 <script>
-	console.log
+const cleanliness=[];
+const wakeup_time=[];
+const sleep_time=[];
+const cooking_frequency=[];
+const chatter=[];
+const snoring=[];
 	function setcocommentname(commentid){
 		document.getElementById("inputcocomment").style.cssText = "display:inline-block;"
 		document.getElementById("commentid").value=commentid

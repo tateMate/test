@@ -21,25 +21,24 @@
 	<form id="joinform" role="form" method="post" enctype="multipart/form-data">
 		<div><table>
 			
-			<tr><td>*email:</td><td><input onchange="echg()"  required type="text" name="user_email" id="user_email">
-			<input type="hidden" id="hiddeninput" value="n" name="hiddeninput"></td></tr>
+			<tr><td>*email:</td><td><input onchange="chkid()" required type="text" name="user_email" id="user_email">
 				
 				
-			<tr><td></td><td><button onclick="chkid()" id="chkbutton">중복체크</button></td></tr>
+			<tr><td></td><td id="rst"></td></tr>
 			
 			
 			
 			
 			<tr><td>*password:</td><td><input required type="password" name=user_pw></td></tr>
-			<tr><td>*nickname:</td><td><input required type="text" name=user_nickname></td></tr>
+			<tr><td>*nickname:</td><td><input required type="text"	value="test"	 name=user_nickname></td></tr>
 			<tr><td>*gender:</td><td><input required type="radio" value="0" name=user_gender	checked		>남
 				<input type="radio" value="1" name=user_gender>여</td></tr>
-			<tr><td>*nationality:</td><td><input required type="text" name=user_nationality></td></tr>
-			<tr><td>*age:</td><td><input required type="number" name=user_age></td></tr>
+			<tr><td>*nationality:</td><td><input required type="text"	value="test"		 name=user_nationality></td></tr>
+			<tr><td>*age:</td><td><input required type="number"			value="12"	 name=user_age></td></tr>
 			<tr><td>*smoking:</td><td><input required type="radio" value="0" 	checked	name=user_smoking>비흡연
 				<input type="radio" value="1" name=user_smoking>흡연</td></tr>
-			<tr><td>*vaccine:</td><td><input required type="number" name=user_vaccine></td></tr>
-			<tr><td>*room:</td><td><input required type="radio"		checked	 value="0" name=user_room onclick="nasi()">없음
+			<tr><td>*vaccine:</td><td><input required type="number" name=user_vaccine	value=1		></td></tr>
+			<tr><td>*room:</td><td><input required type="radio"		checked	 	value="0" name=user_room onclick="nasi()">없음
 				<input type="radio" value="1" name=user_room onclick="ari()">있음</td></tr>
 			<tr><td>지역:</td><td><select name="addressRegion" id="addressRegion1"></select>
 		    <select name="addressDo" id="addressDo1"></select>
@@ -49,7 +48,7 @@
 		<!-- 		input location -->
 			
 			<tr><td></td><td id="room_des"></td></tr>
-			<tr><td>*matching:</td><td><input required type="radio" value="0" name=user_matching>원하지 않음
+			<tr><td>*matching:</td><td><input required type="radio" value="0"	checked	 name=user_matching>원하지 않음
 				<input type="radio" value="1" name=user_matching>원함</td></tr>
 			<tr><td>pet:</td><td><input type="radio" value="0" name=user_matching>있음
 				<input type="radio" value="1" name=user_matching>없음</td></tr>
@@ -57,7 +56,6 @@
 			<tr><td>소개글:</td><td><textarea rows="5" cols="30" name="user_intro" placeholder="본인을 간단하게 소개해 주세요."></textarea></tr>
 			<tr><td>원하는 매칭상:</td><td><textarea rows="5" cols="30" name="user_ideal" placeholder="어떤 룸메이트를 원하시나요?"></textarea></tr>
 			<tr><td>sns:</td><td><input type="text" name=user_sns></td></tr>
-			<tr><td><input type="submit" id="submitbtn" value="가입"></td><td><input style="background-color:red;" type="reset" value="다시쓰자"></td></tr>
 		</table></div>
 <!-- 	user character vo form zone -->
 		<div><table>
@@ -131,6 +129,7 @@
 				<input type="text" name="mbti">
 			</td></tr>
 		</table></div>
+		<br><input type="submit" id="submitbtn" value="가입"><input style="background-color:red;" type="reset" value="다시쓰자">
 	</form>
 	
 	
@@ -138,7 +137,6 @@
 	<br>
 	<hr>
 <script>
-	function echg(){hiddeninput.value="n";}
 	function inputad(si,gun,gu){
 		document.getElementById("location").value=si+" "+gun+" "+gu;
 		console.log(document.getElementById("location").value);
@@ -157,18 +155,23 @@
 			data:{user_email:user_email.value},
   			dataType:"json",
 			success:function(d){
-				console.dir(d);
+				let userE = user_email.value;
 				if(d) {
-					alert("사용가능");
-					hiddeninput.value="y";
+					rst.innerHTML="사용가능한 email입니다."
+// 					idchked=true;
+					submitbtn.disabled="";
+					if(userE==""){
+						rst.innerHTML="email을 입력해주세요."
+						submitbtn.disabled="disabled";
+					}
 				}else {
-					alert("중복된 이메일입니다");
-					hiddeninput.value="n";
+					rst.innerHTML="<em>중복된 email입니다.</em>"
+// 					idchked=false;
+					submitbtn.disabled="disabled";
 				}
 			}
 		});
 	}
-	
 	
 // 	api
 $(function(){
