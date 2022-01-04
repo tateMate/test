@@ -211,7 +211,7 @@ public class TestController2 {
 //회원가입 시 email 중복 체크
 	@PostMapping("/emailChk")
 	@ResponseBody
-	public boolean UserEmailCHK(String user_email,HttpServletRequest request, HttpServletResponse res) {
+	public boolean UserEmailCHK(String user_email) {
 //		request.setAttribute("bol", userService.emailCheck(user_email));
 //		request.setAttribute("test", "testtest");
 //		System.out.println(request.getAttribute("bol"));
