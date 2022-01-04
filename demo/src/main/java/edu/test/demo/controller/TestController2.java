@@ -1,8 +1,11 @@
 package edu.test.demo.controller;
 
+
+
 import java.io.*;
 import java.net.http.HttpResponse;
 import java.util.*;
+import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +37,7 @@ public class TestController2 {
 	CommentService commentService;
 	@Autowired
 	CocommentService cocommentService;
+	
 //test main page
 	@GetMapping("/main")
 	public String testpage(Model model, HttpSession session) {
@@ -212,10 +216,11 @@ public class TestController2 {
 	@PostMapping("/emailChk")
 	@ResponseBody
 	public boolean UserEmailCHK(String user_email) {
-//		request.setAttribute("bol", userService.emailCheck(user_email));
-//		request.setAttribute("test", "testtest");
-//		System.out.println(request.getAttribute("bol"));
-//		System.out.println(userService.emailCheck(user_email));
+		try {
+			userService.sendEmail(user_email);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		return userService.emailCheck(user_email);
 	}
 

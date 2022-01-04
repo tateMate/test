@@ -8,7 +8,6 @@ enum(0=최신 댓글, 1=수정된 댓글, 2=삭제된 댓글)
 staus가 0인 댓글만을 표시하게 한다.
 
 
-
 ***비밀번호 찾기 로직
 유저 아이디+지금시간을 shalize한 것으로 비밀번호를 초기화
 ->를 파라미터로 일회성 url생성(비밀번호 modify 페이지)
@@ -16,10 +15,6 @@ staus가 0인 댓글만을 표시하게 한다.
 
 issue
 지역(동까지) 콤보박스 api받아오기
-
-중복확인 누르지 않으면 회원가입 진행 불가
-
-enum(user character) String으로 받아오기
-user character.js->import
-
 ERD/SQL 최신 업데이트
+*email 확인해서 회원가입 완료하기
+*email을 통해 비밀번호 수정 페이지 수/발신

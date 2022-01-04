@@ -51,13 +51,13 @@ h1 {
 		<h3>국적 :${user.user_nationality}</h3>
 		<h3>나이 :${user.user_age}</h3>
 		<h3>백신 :${user.user_vaccine}차 접종 완료 </h3>
-		<h3 id="room">방 : <!-- ${user.user_room}--></h3>
-		<h3>지역 :${user.user_location}</h3>
-		<h3 id="matching">매칭희망여부 : </h3>
-		<h3>소개 :${user.user_intro}</h3>
-		<h3>원하는 매칭상 :${user.user_ideal}</h3>
 		<h3 id="smoking">흡연 : <!--  ${user.user_smoking} --></h3>
 		<h3 id="pet">애완동물 : <!-- ${user.user_pet} --></h3>
+		<h3 id="room">방 : <!-- ${user.user_room}--></h3>
+		<h3 id="matching">매칭희망여부 : </h3>
+		<h3>지역 :${user.user_location}</h3>
+		<h3>소개 :${user.user_intro}</h3>
+		<h3>원하는 매칭상 :${user.user_ideal}</h3>
 		<h3>sns :<a href="${user.user_sns}">${user.user_sns}</a></h3>
 	</div>
 	<div>

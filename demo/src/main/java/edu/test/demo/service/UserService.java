@@ -1,16 +1,25 @@
 package edu.test.demo.service;
 
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
+import java.util.*;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.runtime.ProtectedFunctionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +35,55 @@ public class UserService {
 	UserDAO userDAO;
 	@Autowired
 	UserCharacterDAO userCharacterDAO;
+	
+	
+	public void sendEmail(String user_email) throws UnsupportedEncodingException, MessagingException {
+		final String TO=user_email;
+		final String FROM="";
+		final String FROMNAME="TATEMATE";
+		final String SMTP_USERNAME="";
+		final String SMTP_PASSWORD="";
+		final String HOST="smtp.gmail.com";
+		final int PORT=587;
+		final String SUBJECT="****TEST(TITLE)****";
+		final String BODY="test용 메일입니다.";
+		
+		Properties props=System.getProperties();
+		props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+		props.put("mail.transport.protocol","smtp");
+		props.put("mail.smtp.port",PORT);
+		props.put("mail.smtp.starttls.enable","true");
+		props.put("mail.smtp.auth","true");
+		
+		Authenticator auth=new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(SMTP_USERNAME,SMTP_PASSWORD);
+			}
+		};
+		
+		Session session=Session.getInstance(props,auth);
+		MimeMessage msg=new MimeMessage(session);
+		msg.setFrom(new InternetAddress(FROM,FROMNAME));
+		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(TO));
+		msg.setSubject(SUBJECT);
+		msg.setContent(BODY,"text/html;charset=utf-8");
+		
+		Transport transport=session.getTransport();
+		try {
+			System.out.println("Sending...");
+			transport.connect(HOST, SMTP_USERNAME,SMTP_PASSWORD);
+			transport.sendMessage(msg, msg.getAllRecipients());
+			System.out.println("Email sent!");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			transport.close();
+		}
+		
+		
+	}
+	
 	
 //for a test
 	public List<UserVO> selectUser() {
