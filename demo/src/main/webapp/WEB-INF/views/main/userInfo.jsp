@@ -13,7 +13,9 @@ body {
 }
 div {
 	display: inline-block;
-	width: 45%;
+	margin: auto;
+	padding:10px;
+/* 	width: 45%; */
 	justify-content: space-between;
 }
 img{height: 200px;}
@@ -60,13 +62,13 @@ h1 {
 	</div>
 	<div>
 		<p>${user.user_nickname}의character</p>
-		<h3>청결도 :${character.cleanliness}</h3>
-		<h3>기상시간 :${character.wakeup_time}</h3>
-		<h3>취침시간 :${character.sleep_time}</h3>
-		<h3>요리빈도 :${character.cooking_frequency}</h3>
-		<h3>수다력 :${character.chatter}</h3>
-		<h3>잠버릇 :${character.snoring}</h3>
-		<h3>mbti :${character.mbti}</h3>
+		<h3 id="cleanliness">청결도 : </h3>
+		<h3 id="wakeup_time">기상시간 : </h3>
+		<h3 id="sleep_time">취침시간 : </h3>
+		<h3 id="cooking_frequency">요리빈도 : </h3>
+		<h3 id="chatter">수다력 : </h3>
+		<h3 id="snoring">잠버릇 : </h3>
+		<h3 id="mbti">mbti :${character.mbti}</h3>
 	</div>
 	<c:if test="${sessionScope.user.user_id eq param.user_id}">
 		<button onclick="window.location.href='/userinfo/modify?user_id=${user.user_id}'">회원정보 수정</button>
@@ -167,15 +169,22 @@ h1 {
 
 </body>
 <script>
-const cleanliness=[];
-const wakeup_time=[];
-const sleep_time=[];
-const cooking_frequency=[];
-const chatter=[];
-const snoring=[];
+const cleanliness=["매우 더러움","더러움","보통","깨끗함","매우 깨끗함"];
+const wakeup_time=["매우 이름","이름","보통","늦음","매우 늦음"];
+const sleep_time=["매우 이름","이름","보통","늦음","매우 늦음"];
+const cooking_frequency=["매우 드묾","드묾","보통","빈번함","매우 빈번함"];
+const chatter=["매우 과묵함","과묵함","보통","수다스러움","매우 수다스러움"];
+const snoring=["매우 얌전함","얌전함","보통","심함","매우 심함"];
+document.getElementById("cleanliness").innerText+=cleanliness[${character.cleanliness}-1];
+document.getElementById("wakeup_time").innerText+=wakeup_time[${character.wakeup_time}-1];
+document.getElementById("sleep_time").innerText+=sleep_time[${character.sleep_time}-1];
+document.getElementById("cooking_frequency").innerText+=cooking_frequency[${character.cooking_frequency}-1];
+document.getElementById("chatter").innerText+=chatter[${character.chatter}-1];
+document.getElementById("snoring").innerText+=snoring[${character.snoring}-1];
+// document.getElementById("cleanliness").innerText="${character.cleanliness}";
 	function setcocommentname(commentid){
-		document.getElementById("inputcocomment").style.cssText = "display:inline-block;"
-		document.getElementById("commentid").value=commentid
+		document.getElementById("inputcocomment").style.cssText = "display:inline-block;";
+		document.getElementById("commentid").value=commentid;
 	}
 	function modco(contents, id){
 		var str="<form action='modico' method='post'><input type='text' value='"+contents+"' name='comment_contents'><input type='hidden' name='comment_id' value='"+id+"'><button type='submit'>확인</button></form>";

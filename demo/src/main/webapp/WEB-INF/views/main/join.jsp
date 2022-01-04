@@ -132,8 +132,6 @@
 		<br><input type="submit" id="submitbtn" value="가입"><input style="background-color:red;" type="reset" value="다시쓰자">
 	</form>
 	
-	
-	
 	<br>
 	<hr>
 <script>
@@ -158,7 +156,6 @@
 				let userE = user_email.value;
 				if(d) {
 					rst.innerHTML="사용가능한 email입니다."
-// 					idchked=true;
 					submitbtn.disabled="";
 					if(userE==""){
 						rst.innerHTML="email을 입력해주세요."
@@ -166,8 +163,8 @@
 					}
 				}else {
 					rst.innerHTML="<em>중복된 email입니다.</em>"
-// 					idchked=false;
 					submitbtn.disabled="disabled";
+					document.getElementById('user_email').style.color="red";
 				}
 			}
 		});
