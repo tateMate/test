@@ -45,6 +45,25 @@
 	<select id = "nicknameCheck" resultType="UserVO"  parameterType="String">
 		SELECT * FROM user WHERE user_nickname = #{nickname}
 	</select>
+	
+<!-- modify password -->
+	<update id="modifyPw" parameterType="map">
+		update user set user_pw = #{pw} where user_email = #{user_email}
+	</update>
+
+<!-- select by password -->
+	<select id = "selectUserByUserPw" resultType="UserVO"  parameterType="String">
+		SELECT * FROM user WHERE user_pw  = #{user_pw}
+	</select>
+	
+<!-- select users by location -->
+	<select id = "selectUsersByLocation" resultType="UserVO"  parameterType="String">
+		SELECT * 
+		FROM user 
+		WHERE user_location like #{location}
+	</select>
+	
+	
 <!-- select 
 	<select id = "methodID" resultType="returnType"  parameterType="parameterType">
 		SELECT * FROM table WHERE admin_ID  = #{parameterName}

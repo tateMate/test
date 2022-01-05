@@ -13,11 +13,14 @@ import edu.test.demo.vo.UserVO;
 public interface UserDAO {
 	public List<UserVO> selectUser();					//for a test
 	
-	public UserVO selectUserByUserId(int user_id);		//user id�� user����
-	public int insertUser(UserVO vo);					//ȸ������
-	public UserVO selectUserLogin(Map<String, String> id_pass);//�α�
+	public UserVO selectUserByUserId(int user_id);		//userVO by user id
+	public int insertUser(UserVO vo);					//insert
+	public UserVO selectUserLogin(Map<String, String> id_pass);//login check
 	public int modifyUser(UserVO vo);		//modify user
 	public UserVO emailCheck(String email);			//	email check
 	public UserVO nicknameCheck(String nickname);	//	nickname check
 	public List<UserVO> selectRcmdUserByUserId(int user_id);	//recommend user
+	public List<UserVO> selectUsersByLocation(String location);	//recommend user mulgae version. userVO by location
+	public int modifyPw(Map<String,String> emailPass);					//	modify password
+	public UserVO selectUserByUserPw(String user_pw);					//	userVO by pw
 }

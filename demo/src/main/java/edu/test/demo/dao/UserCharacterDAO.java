@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import edu.test.demo.vo.UserCharacterVO;
-import edu.test.demo.vo.UserVO;
 
 
 @Repository
