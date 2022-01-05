@@ -12,6 +12,12 @@
 		WHERE user_id=#{user_id}
 	</select>
 
+<!-- user email로 user선택 -->	
+	<select id = "selectUserByUserEmail" resultType="UserVO" parameterType="String">
+		SELECT * FROM user 
+		WHERE user_email=#{user_email}
+	</select>
+
 	
 <!-- 회원가입 -->
 	<insert id="insertUser" parameterType="UserVO">

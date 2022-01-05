@@ -32,7 +32,7 @@ public class UserService {
 	UserCharacterDAO userCharacterDAO;
 	
 	
-	public void sendEmail(String user_email) throws UnsupportedEncodingException, MessagingException {
+	public void sendEmail(String user_email, String pwModifyURL) throws UnsupportedEncodingException, MessagingException {
 		final String TO=user_email;
 		final String FROM="";
 		final String FROMNAME="TATEMATE";
@@ -41,7 +41,7 @@ public class UserService {
 		final String HOST="smtp.gmail.com";
 		final int PORT=587;
 		final String SUBJECT="****TEST(TITLE)****";
-		final String BODY="test용 메일입니다.";
+		final String BODY="test용 메일입니다." + pwModifyURL;
 		
 		Properties props=System.getProperties();
 		props.put("mail.smtp.ssl.protocols", "TLSv1.2");
@@ -88,6 +88,10 @@ public class UserService {
 //by user id
 	public UserVO selectUserByUserId(int user_id) {
 		return userDAO.selectUserByUserId(user_id);
+	}
+//by user email
+	public UserVO selectUserByUserEmail(String user_email) {
+		return userDAO.selectUserByUserEmail(user_email);
 	}
 	
 //insert user(join)
@@ -232,17 +236,19 @@ public class UserService {
 	}
 	
 // pw change & return tmpPw (int user_id)
-	public String forgotPw(int user_id) {
+	public void forgotPw(int user_id) throws UnsupportedEncodingException, MessagingException {
 		UserVO user = selectUserByUserId(user_id);
 		String email = user.getUser_email();
 		String pw = user.getUser_pw();
 		String time = LocalDateTime.now().toString();
-		String tmpPw = shalize(email+pw+time);
-		Map<String, String> emailPass = new HashMap<>();
-		emailPass.put("user_email", email);
-		emailPass.put("pw", shalize("tateMate"+tmpPw));
-		userDAO.modifyPw(emailPass);
-		return tmpPw;
+		String tmpPw = shalize(email+pw+time);									//	tmp password 
+		String pwModifyURL = "http://localhost:8080/modifyPw?tmpPw="+tmpPw;		//	URL
+		Map<String, String> emailPass = new HashMap<>();						//	map for sqlMapper
+		emailPass.put("user_email", email);	
+		emailPass.put("pw", shalize("tateMate"+tmpPw));							
+		userDAO.modifyPw(emailPass);											//	modify password tateMate + tmp password
+		System.out.println(pwModifyURL);
+		//		sendEmail(email, pwModifyURL);											// send email.
 	}
 // userVO by pw
 	public UserVO selectUserByUserPw(String user_pw) {

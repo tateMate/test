@@ -217,7 +217,7 @@ public class TestController2 {
 	@ResponseBody
 	public boolean UserEmailCHK(String user_email) {
 		try {
-			userService.sendEmail(user_email);
+			userService.sendEmail(user_email, "test");
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -244,6 +244,62 @@ public class TestController2 {
 		
 	}
 	
+//비밀번호 찾기 페이지
+	@GetMapping("/forgotPw")
+	public String forgotPwGet() {
+		return "main/forgotPw";
+	}
+	
+//비밀번호 찾기 페이지 post
+	@PostMapping("/forgotPw")
+	public String forgotPwPost(String user_email, Model model) {
+		try {
+			UserVO user = userService.selectUserByUserEmail(user_email);
+			if(user==null) {
+				model.addAttribute("msg","존재하지 않는 EMAIL입니다.");
+				return "main/fail";
+			}
+			userService.forgotPw(user.getUser_id());
+			model.addAttribute("email", user_email);	// ${email}로 비밀번호를 변경할 수 있는 링크를 보냈엉! 확인해라 엉엉!
+			return "main/sendmail";
+		} catch (Exception e) {
+			System.out.println(e);
+			model.addAttribute("msg",e);
+			return "main/fail";
+		}
+	}
+
+//비밀번호 변경 페이지 get
+	@GetMapping("/modifyPw")
+	public String modifyPwGet(String tmpPw, Model model) {
+		try {
+			UserVO user = userService.selectUserByUserPw(tmpPw);
+			if(user == null) {
+				model.addAttribute("msg","사용할 수 없는 링크입니다.");
+				return "main/fail";
+			}
+			model.addAttribute("user_email", user.getUser_email());
+			return "main/modifyPw";
+		} catch (Exception e) {
+			System.out.println(e);
+			model.addAttribute("msg",e);
+			return "main/fail";
+		}
+		
+	}
+
+//비밀번호 변경 페이지 post
+	@PostMapping("modifyPw")
+	public String modifyPwPost(String user_email, String user_pw, Model model) {
+		try {
+			userService.modifyPw(user_email, user_pw);
+			return "redirect:/login";
+		} catch (Exception e) {
+			model.addAttribute("msg", e);
+			System.out.println(e);
+			return "main/fail";
+		}
+	}
 	
 	
 }

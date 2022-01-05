@@ -14,6 +14,7 @@ public interface UserDAO {
 	public List<UserVO> selectUser();					//for a test
 	
 	public UserVO selectUserByUserId(int user_id);		//userVO by user id
+	public UserVO selectUserByUserEmail(String user_email);		//userVO by user id
 	public int insertUser(UserVO vo);					//insert
 	public UserVO selectUserLogin(Map<String, String> id_pass);//login check
 	public int modifyUser(UserVO vo);		//modify user

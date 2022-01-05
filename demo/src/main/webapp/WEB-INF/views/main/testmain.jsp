@@ -24,6 +24,7 @@ div:hover{
 	<a href="http://localhost:8080/login">로그인 test</a><br>
 	<a href="http://localhost:8080/join">회원가입 test</a><br>
 	<a href="http://localhost:8080/userinfo?user_id=1">회원정보</a><br>
+	<a href="http://localhost:8080/forgotPw">비밀번호 찾기</a><br>
 	<hr>
 		<h1 style="font-size:150px;">TATEMATE</h1>
 		<h6>따떼마떼</h6>
