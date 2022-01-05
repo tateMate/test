@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>main page for test</title>
+<title>welcome to TATEMATE</title>
 <style>
 div{
 	border:1px solid black;

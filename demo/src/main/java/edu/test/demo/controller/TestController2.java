@@ -206,6 +206,7 @@ public class TestController2 {
 		try {
 			userService.insertUser(vo, request, file);
 			userCharacterService.insertUserCharacter(characterVO);
+			userService.sendEmail(vo.getUser_email(), "join");
 			return "redirect:/login";
 		}catch (Exception e) {
 			model.addAttribute("msg",e);
@@ -216,11 +217,6 @@ public class TestController2 {
 	@PostMapping("/emailChk")
 	@ResponseBody
 	public boolean UserEmailCHK(String user_email) {
-		try {
-			userService.sendEmail(user_email, "test");
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
 		return userService.emailCheck(user_email);
 	}
 
@@ -275,7 +271,7 @@ public class TestController2 {
 		try {
 			UserVO user = userService.selectUserByUserPw(tmpPw);
 			if(user == null) {
-				model.addAttribute("msg","사용할 수 없는 링크입니다.");
+				model.addAttribute("msg","링크가 만료되었습니다.");
 				return "main/fail";
 			}
 			model.addAttribute("user_email", user.getUser_email());
