@@ -11,6 +11,7 @@
 	<hr>
 	<div>
 	${email} 로 비밀번호를 변경할 수 있는 링크를 보냈엉! 확인해라 엉엉!
+	<br>비밀번호가 초기화되었으니 반드시 재설정 해주시기 바랍니다.
 	</div>
 	<a href="http://localhost:8080/main">main으로</a>
 	<img

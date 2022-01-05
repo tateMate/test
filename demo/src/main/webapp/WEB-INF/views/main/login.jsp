@@ -7,7 +7,11 @@
 <meta charset="utf-8">
 <title>tatemate login</title>
 <style>
-	a{font-size: 10px;
+	a{font-size: 10px;}
+	button{
+		font-size: 50px;
+		padding: 30px;
+	}
 </style>
 </head>
 <body>
@@ -19,9 +23,9 @@
 		<br>
 		<input type="submit" value="로그인" style="margin-right:10px;"><a href='http://localhost:8080/forgotPw'>비밀번호 찾기</a>
 	</form>
-	
 	<br>
 	<hr>
+	<button onclick="location.href='main'">main</button>
 <script>
 </script>
 

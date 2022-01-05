@@ -195,8 +195,8 @@ document.getElementById("snoring").innerText+=snoring[${character.snoring}-1];
 		document.getElementById("cocomment_modify_zone"+id).innerHTML=str;
 	}
 	function test(){
-		if(!${user.user_gender}) gender.innerHTML+="여자";
-		else gender.innerHTML+="남자";
+		if(!${user.user_gender}) gender.innerHTML+="남자";
+		else gender.innerHTML+="여자";
 		if(!${user.user_smoking}) smoking.innerHTML+="비흡연";
 		else smoking.innerHTML+="흡연";
 		if(!${user.user_room}) room.innerHTML+="없음";

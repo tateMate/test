@@ -206,13 +206,33 @@ public class TestController2 {
 		try {
 			userService.insertUser(vo, request, file);
 			userCharacterService.insertUserCharacter(characterVO);
-			userService.sendEmail(vo.getUser_email(), "join");
+			userService.sendEmail(vo.getUser_email(), "join","garaurl");
 			return "redirect:/login";
 		}catch (Exception e) {
 			model.addAttribute("msg",e);
 			return "main/fail";
 		}
 	}
+	
+	
+	//new join logic
+	@GetMapping("/newjoin")
+	public String newjoin() {
+		return "main/joinMailCHK";
+	}
+	@PostMapping("/joinmail")
+	public String joinjoin(Model model, String user_email) {
+		try {
+			userService.sendEmail(user_email, "join", "garaurl");
+			return "main/success";
+		} catch (Exception e) {
+			model.addAttribute("msg",e);
+			return "main/fail";
+		}
+	}
+	
+	
+	
 //회원가입 시 email 중복 체크
 	@PostMapping("/emailChk")
 	@ResponseBody
@@ -235,7 +255,7 @@ public class TestController2 {
 		}else {
 			session.setAttribute("user", user);
 			session.setAttribute("userCharacter", userCharacterService.selectUserCharacterByUserId(user.getUser_id()));
-			return "redirect:/userinfo?user_id="+user.getUser_id();
+			return "redirect:/main";
 		}
 		
 	}

@@ -32,7 +32,7 @@ public class UserService {
 	UserCharacterDAO userCharacterDAO;
 	
 	
-	public void sendEmail(String user_email, String purpose) throws Exception {
+	public void sendEmail(String user_email, String purpose, String url) throws Exception {
 		File securityFile=new File("C://security.txt");
 		Scanner sc=new Scanner(securityFile);
 		final String FROM=sc.nextLine();
@@ -44,12 +44,12 @@ public class UserService {
 		final int PORT=587;
 		final String SUBJECT="****TATEMATE(TEST)****";
 		final String TO=user_email;
-		String body="비밀번호를 잊어버렸을 때 보내는 test용 email입니다.";
+		String body="비밀번호를 잊어버렸을 때 보내는 test용 email입니다.<hr><br>";
 		
 		if(purpose.equals("join")) {
-			body="TATEMATE에 오신것을 환영합니다.<hr>*****join용 test email입니다.*****";
-		}else {
-			body+=purpose;
+			body="TATEMATE에 오신것을 환영합니다.<hr>*****join용 test email입니다.*****"+url;
+		}else if(purpose.equals("pw")) {
+			body+=url;
 		}
 		
 		Properties props=System.getProperties();
@@ -257,7 +257,7 @@ public class UserService {
 		emailPass.put("pw", shalize("tateMate"+tmpPw));							
 		userDAO.modifyPw(emailPass);											//	modify password tateMate + tmp password
 		System.out.println(pwModifyURL);
-		sendEmail(email, pwModifyURL);											// send email.
+		sendEmail(email, "pw" , pwModifyURL);											// send email.
 	}
 // userVO by pw
 	public UserVO selectUserByUserPw(String user_pw) {
