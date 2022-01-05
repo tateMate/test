@@ -22,12 +22,13 @@ div:hover{
 <body>
 	<h1>this is main page for test</h1>
 	<a href="http://localhost:8080/login">로그인 test</a>
-	<button>log out</button>
+	<button onclick="location.href='logout'">log out</button>
 	<br>
 	<a href="http://localhost:8080/join">회원가입 test</a><br>
 	<a href="http://localhost:8080/userinfo?user_id=1">회원정보</a><br>
 	<a href="http://localhost:8080/forgotPw">비밀번호 찾기</a><br>
 	<a href="http://localhost:8080/newjoin">**NEW LOGIN LOGIC**</a><br>
+	<textarea></textarea>
 	<hr>
 		<h1 style="font-size:150px;">TATEMATE</h1>
 		<h6>따떼마떼</h6>

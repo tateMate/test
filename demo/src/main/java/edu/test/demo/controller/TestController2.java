@@ -200,7 +200,6 @@ public class TestController2 {
 	public String UserInsertGet() {
 		return "main/join";
 	}
-
 	@PostMapping("/join")
 	public String UserInsertPost(Model model, UserVO vo, UserCharacterVO characterVO, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
 		try {
@@ -214,7 +213,6 @@ public class TestController2 {
 		}
 	}
 	
-	
 	//new join logic
 	@GetMapping("/newjoin")
 	public String newjoin() {
@@ -223,13 +221,40 @@ public class TestController2 {
 	@PostMapping("/joinmail")
 	public String joinjoin(Model model, String user_email) {
 		try {
-			userService.sendEmail(user_email, "join", "garaurl");
+			//userService.sendEmail(user_email, "join", "garaurl");
+			model.addAttribute("email", user_email);
 			return "main/success";
 		} catch (Exception e) {
 			model.addAttribute("msg",e);
 			return "main/fail";
 		}
 	}
+	
+	//회원가입 페이지
+	@GetMapping("/modifyPw")
+	public String realjoin(String tmpPw, Model model) {
+		return "여기";
+		/*
+		try {
+			UserVO user = userService.selectUserByUserPw(tmpPw);
+			if(user == null) {
+				model.addAttribute("msg","링크가 만료되었습니다.");
+				return "main/fail";
+			}
+			model.addAttribute("user_email", user.getUser_email());
+			return "main/join";
+		} catch (Exception e) {
+			System.out.println(e);
+			model.addAttribute("msg",e);
+			return "main/fail";
+		}
+		*/
+	}
+	
+	
+	
+	
+	
 	
 	
 	
@@ -259,6 +284,13 @@ public class TestController2 {
 		}
 		
 	}
+//로그 아웃 log out	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main";
+	}	
+	
 	
 //비밀번호 찾기 페이지
 	@GetMapping("/forgotPw")

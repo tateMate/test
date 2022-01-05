@@ -44,12 +44,12 @@ public class UserService {
 		final int PORT=587;
 		final String SUBJECT="****TATEMATE(TEST)****";
 		final String TO=user_email;
-		String body="비밀번호를 잊어버렸을 때 보내는 test용 email입니다.<hr><br>";
+		String body="TATEMATE에 오신것을 환영합니다. 관리자에게 문의를 해주세요.";
 		
 		if(purpose.equals("join")) {
 			body="TATEMATE에 오신것을 환영합니다.<hr>*****join용 test email입니다.*****"+url;
 		}else if(purpose.equals("pw")) {
-			body+=url;
+			body="비밀번호를 잊어버렸을 때 보내는 test용 email입니다.<hr><br>"+url;
 		}
 		
 		Properties props=System.getProperties();

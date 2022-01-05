@@ -24,10 +24,10 @@ width: 100%;
 	<h1>NEW JOIN LOGIC</h1>
 	<hr>
 	<form action="joinmail" method="post">
-		<label>이메일 : </label> <input id="user_email" type="text" name="user_email" onchange="chkid()" required="required">
+		<label>이메일 : </label> <input id="user_email" type="email" name="user_email" onchange="chkid()" required="required">
 		<input type="submit" value="입력" id="submitbtn">
 	</form>
-	<div id="rst">here</div>
+	<div id="rst"></div>
 	<a href="http://localhost:8080/main">main으로</a>
 	
 	

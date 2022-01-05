@@ -40,7 +40,8 @@ h1 {
 			<p style="display: inline-block">${sessionScope.user.user_nickname}(id:${sessionScope.user.user_id})로 로그인중</p>
 		</c:otherwise>
 	</c:choose>
-	<a href="http://localhost:8080/main">main으로</a>
+	<br><button onclick="location.href='logout'"> log out</button>
+	<br><a href="http://localhost:8080/main">main으로</a>
 	<hr>
 <!-- user info zone -->
 	<div style="height:200px;display:block;"><img src="../../../IMG/${user.user_profile}" height="300" alt="등록된 이미지가 없습니다."></div>
