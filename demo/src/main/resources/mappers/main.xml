@@ -51,7 +51,7 @@
 <!-- 	유저 수정 -->
 	<update id="modifyUser" parameterType="UserVO">
 		UPDATE USER
-		SET user_nickname=#{user_nickname},user_nationality=#{user_nationality},user_age=#{user_age},user_smoking=#{user_smoking},user_vaccine=#{user_vaccine}
+		SET user_nickname=#{user_nickname},user_gender=#{user_gender},user_nationality=#{user_nationality},user_age=#{user_age},user_smoking=#{user_smoking},user_vaccine=#{user_vaccine}
 			,user_room=#{user_room},user_matching=#{user_matching},user_profile=#{user_profile},user_pet=#{user_pet},user_intro=#{user_intro},user_ideal=#{user_ideal},user_location=#{user_location},user_sns=#{user_sns}
 		WHERE user_id=#{user_id}
 	</update>
@@ -69,7 +69,7 @@
 	
 <!-- modify password -->
 	<update id="modifyPw" parameterType="map">
-		update user set user_pw = #{pw} where user_email = #{user_email}
+		update user set user_email = #{user_email}, user_pw = #{pw} where user_id = #{user_id}
 	</update>
 
 <!-- select by password -->

@@ -111,7 +111,6 @@ public class TestController2 {
 				commentService.deleteComment(comment_id);
 				return "main/success";
 			}else {
-				System.out.println("YOU. ARE. NOT. THAT. USER!");
 				model.addAttribute("msg","Unauthorized User");
 				return "main/fail";
 			}
@@ -132,7 +131,6 @@ public class TestController2 {
 				commentService.modifyComment(comment_id, comment_contents);
 				return "main/success";
 			}else {
-				System.out.println("YOU. ARE. NOT. THAT. USER!");
 				model.addAttribute("msg","Unauthorized User");
 				return "main/fail";
 			}
@@ -147,8 +145,6 @@ public class TestController2 {
 //대댓글입력
 	@PostMapping("/cocomment")
 	public String PostCocomment(CocommentVO cocommentVO){
-		System.out.println("대댓글 쓴 이(로그인 중인 id):"+cocommentVO.getCocomment_id_from());
-		System.out.println("cocomment id:"+cocommentVO.getCocomment_id()+"/cocomment id:"+cocommentVO.getComment_id());
 		cocommentService.insertCocomment(cocommentVO);
 		return "main/success";
 	}
@@ -163,7 +159,6 @@ public class TestController2 {
 				cocommentService.deleteCocomment(cocomment_id);
 				return "main/success";
 			}else {
-				System.out.println("YOU. ARE. NOT. THAT. USER!");
 				model.addAttribute("msg","Unauthorized User");
 				return "main/fail";
 			}
@@ -184,7 +179,6 @@ public class TestController2 {
 				cocommentService.modifyComment(cocomment_id, cocomment_contents);
 				return "main/success";
 			}else {
-				System.out.println("YOU. ARE. NOT. THAT. USER!");
 				model.addAttribute("msg","Unauthorized User");
 				return "main/fail";
 			}
@@ -246,8 +240,8 @@ public class TestController2 {
 	@PostMapping("/realjoin")
 	public String UserInsertPost(Model model, UserVO vo, UserCharacterVO characterVO, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
 		try {
+			//userCharacterService.insertUserCharacter(characterVO);// modify로 변경
 			userService.modifyUser(vo, characterVO, null, request, file);
-			userCharacterService.insertUserCharacter(characterVO);
 			return "redirect:/login";
 		}catch (Exception e) {
 			model.addAttribute("msg",e);
@@ -330,7 +324,7 @@ public class TestController2 {
 				model.addAttribute("msg","링크가 만료되었습니다.");
 				return "main/fail";
 			}
-			model.addAttribute("user_email", user.getUser_email());
+			model.addAttribute("user", user);
 			return "main/modifyPw";
 		} catch (Exception e) {
 			System.out.println(e);
@@ -342,9 +336,9 @@ public class TestController2 {
 
 //비밀번호 변경 페이지 post
 	@PostMapping("modifyPw")
-	public String modifyPwPost(String user_email, String user_pw, Model model) {
+	public String modifyPwPost(int user_id, String user_email, String user_pw, Model model) {
 		try {
-			userService.modifyPw(user_email, user_pw);
+			userService.modifyPw(user_id, user_email, user_pw);
 			return "redirect:/login";
 		} catch (Exception e) {
 			model.addAttribute("msg", e);

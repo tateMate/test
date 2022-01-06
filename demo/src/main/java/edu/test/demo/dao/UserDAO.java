@@ -26,6 +26,6 @@ public interface UserDAO {
 	public UserVO nicknameCheck(String nickname);	//	nickname check
 	public List<UserVO> selectRcmdUserByUserId(int user_id);	//recommend user
 	public List<UserVO> selectUsersByLocation(String location);	//recommend user mulgae version. userVO by location
-	public int modifyPw(Map<String,String> emailPass);					//	modify password
+	public int modifyPw(Map<String,Object> emailPass);					//	modify password
 	public UserVO selectUserByUserPw(String user_pw);					//	userVO by pw
 }

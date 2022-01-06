@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>join</title>
+<title>modify</title>
 <style>
 	div{
 		width:45%;

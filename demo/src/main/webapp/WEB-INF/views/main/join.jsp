@@ -42,8 +42,8 @@
 			<tr><td></td><td id="room_des"></td></tr>
 			<tr><td>*matching:</td><td><input required type="radio" value="0" name=user_matching>원하지 않음
 				<input type="radio" value="1" name=user_matching>원함</td></tr>
-			<tr><td>pet:</td><td><input type="radio" value="0" name=user_matching>있음
-				<input type="radio" value="1" name=user_matching>없음</td></tr>
+			<tr><td>pet:</td><td><input type="radio" value="0" name=user_pet>없음
+				<input type="radio" value="1" name=user_pet>있음</td></tr>
 			<tr><td>대표사진</td><td colspan="2"><input type="file" name="file"></td></tr>
 			<tr><td>소개글:</td><td><textarea rows="5" cols="30" name="user_intro" placeholder="본인을 간단하게 소개해 주세요."></textarea></tr>
 			<tr><td>원하는 매칭상:</td><td><textarea rows="5" cols="30" name="user_ideal" placeholder="어떤 룸메이트를 원하시나요?"></textarea></tr>

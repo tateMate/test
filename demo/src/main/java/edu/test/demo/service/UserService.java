@@ -108,7 +108,7 @@ public class UserService {
 		}else {
 			String fileURL=request.getServletContext().getRealPath("IMG");
 			String uploadFileName=vo.getUser_email().replace(".","d").replace("@","at")+"."+file.getContentType().substring(file.getContentType().lastIndexOf("/")+1);
-			System.out.println(uploadFileName);
+			//System.out.println(uploadFileName);
 			File destinationFile=new File(fileURL, uploadFileName);
 			file.transferTo(destinationFile);//upload
 			vo.setUser_profile(uploadFileName);//upload�� ��θ� vo�� setting
@@ -124,6 +124,7 @@ public class UserService {
 		vo.setUser_pw(user_email);
 		vo.setUser_email(shalize("tatemate"+param));
 		userDAO.insertTmpUser(vo);
+		userCharacterDAO.insertUserCharacter(new UserCharacterVO());
 		sendEmail(user_email, "join", "http://localhost:8080/realjoin?tatemate="+param);
 		return param;
 	}
@@ -147,12 +148,16 @@ public class UserService {
 			}else {
 				String fileURL=request.getServletContext().getRealPath("IMG");
 				String uploadFileName=userVO.getUser_email().replace(".","d").replace("@","at")+"."+file.getContentType().substring(file.getContentType().lastIndexOf("/")+1);
-				System.out.println(uploadFileName);
+				//System.out.println(uploadFileName);
 				File destinationFile=new File(fileURL, uploadFileName);
 				file.transferTo(destinationFile);//upload
 				userVO.setUser_profile(uploadFileName);//upload�� ��θ� vo�� setting
 			}
-			modifyPw(userVO.getUser_email(), userVO.getUser_pw());
+			/*			DB				vo
+			 	email	pw				email		
+			 	pw		email			user_pw
+			 */
+			modifyPw(userVO.getUser_id(), userVO.getUser_email(), userVO.getUser_pw());
 		}else {		//modify
 			if(file.getContentType().contains("octet-stream")) {
 				userVO.setUser_profile(((UserVO)session.getAttribute("user")).getUser_profile());
@@ -160,7 +165,7 @@ public class UserService {
 			else {
 				String fileURL=request.getServletContext().getRealPath("IMG");
 				String uploadFileName=((UserVO)session.getAttribute("user")).getUser_email().replace(".","d").replace("@","at")+"."+file.getContentType().substring(file.getContentType().lastIndexOf("/")+1);
-				System.out.println(uploadFileName);
+				//System.out.println(uploadFileName);
 				File destinationFile=new File(fileURL, uploadFileName);
 				file.transferTo(destinationFile);//upload
 				userVO.setUser_profile(uploadFileName);//upload�� ��θ� vo�� setting
@@ -239,7 +244,7 @@ public class UserService {
 			nearbyUserList.clear();
 			nearbyUserList.addAll(userDAO.selectUsersByLocation(location));
 		}
-		System.out.println(nearbyUserList);
+		//System.out.println(nearbyUserList);
 		Map<Integer, List<UserVO>> differentMap = new HashMap<Integer, List<UserVO>>(); // 성격 차이가 적은 순으로 정렬하기 위한 맵.
 		//	나중에 user_ideal 생기면 캐릭터 찾는 부분만 변경
 		UserCharacterVO userCharacter = userCharacterDAO.selectUserCharacterByUserId(user_id);
@@ -275,7 +280,7 @@ public class UserService {
 		for (Integer key : keyList) {
 			rcmdUserList.addAll(differentMap.get(key));	//	정렬된 key에 해당하는 userList를 받아서 추천 리스트에 저장.
 		}
-		System.out.println(rcmdUserList);
+		//System.out.println(rcmdUserList);
 		return rcmdUserList;
 	}
 	
@@ -287,11 +292,11 @@ public class UserService {
 		String time = LocalDateTime.now().toString();
 		String tmpPw = shalize(email+pw+time);									//	tmp password 
 		String pwModifyURL = "http://localhost:8080/modifyPw?tmpPw="+tmpPw;		//	URL
-		Map<String, String> emailPass = new HashMap<>();						//	map for sqlMapper
+		Map<String, Object> emailPass = new HashMap<>();						//	map for sqlMapper
+		emailPass.put("user_id", user_id);	
 		emailPass.put("user_email", email);	
 		emailPass.put("pw", shalize("tateMate"+tmpPw));							
 		userDAO.modifyPw(emailPass);											//	modify password tateMate + tmp password
-		System.out.println(pwModifyURL);
 		sendEmail(email, "pw" , pwModifyURL);											// send email.
 	}
 // userVO by pw
@@ -301,9 +306,10 @@ public class UserService {
 	}
 	
 //modify password
-	public int modifyPw(String user_email, String user_pw) {
+	public int modifyPw(int user_id, String user_email, String user_pw) {
 		String pw = shalize(user_email+user_pw);
-		Map<String, String> emailPass = new HashMap<>();
+		Map<String, Object> emailPass = new HashMap<>();
+		emailPass.put("user_id", user_id);
 		emailPass.put("user_email", user_email);
 		emailPass.put("pw", pw);
 		return userDAO.modifyPw(emailPass);

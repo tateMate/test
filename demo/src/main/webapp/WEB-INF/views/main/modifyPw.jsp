@@ -12,7 +12,8 @@
 	<form action="modifyPw" method="post">
 		<label>새 비밀번호 : </label>
 		<input type="password" name="user_pw">
-		<input type="hidden" name="user_email" value="${user_email}">
+		<input type="hidden" name="user_id" value="${user.user_id}">
+		<input type="hidden" name="user_email" value="${user.user_email}">
 		<input type="submit">
 	</form>
 	<hr>
