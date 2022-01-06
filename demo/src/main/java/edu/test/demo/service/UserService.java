@@ -31,7 +31,7 @@ public class UserService {
 	@Autowired
 	UserCharacterDAO userCharacterDAO;
 	
-	
+//Sending Email Process	
 	public void sendEmail(String user_email, String purpose, String url) throws Exception {
 		File securityFile=new File("C://security.txt");
 		Scanner sc=new Scanner(securityFile);
@@ -47,9 +47,9 @@ public class UserService {
 		String body="TATEMATE에 오신것을 환영합니다. 관리자에게 문의를 해주세요.";
 		
 		if(purpose.equals("join")) {
-			body="TATEMATE에 오신것을 환영합니다.<hr>*****join용 test email입니다.*****"+url;
+			body="TATEMATE에 오신것을 환영합니다.<hr>*****join용 test email입니다.*****<hr><br><a href='"+url+"'>회원가입 완료하러 가기</a>";
 		}else if(purpose.equals("pw")) {
-			body="비밀번호를 잊어버렸을 때 보내는 test용 email입니다.<hr><br>"+url;
+			body="비밀번호를 잊어버렸을 때 보내는 test용 email입니다.<hr><br><a href='"+url+"'>비밀번호 재설정하러 가기</a>";
 		}
 		
 		Properties props=System.getProperties();
@@ -84,8 +84,6 @@ public class UserService {
 		}finally {
 			transport.close();
 		}
-		
-		
 	}
 	
 	
@@ -118,6 +116,30 @@ public class UserService {
 		vo.setUser_pw(shalize(vo.getUser_email()+vo.getUser_pw()));
 		return userDAO.insertUser(vo);
 	}
+
+//new join logic
+	public String insertTmpUser(String user_email) throws Exception {
+		UserVO vo=new UserVO();
+		String param = shalize(user_email);
+		vo.setUser_pw(user_email);
+		vo.setUser_email(shalize("tatemate"+param));
+		userDAO.insertTmpUser(vo);
+		sendEmail(user_email, "join", "http://localhost:8080/realjoin?tatemate="+param);
+		System.out.println(param);
+		System.out.println(shalize("tatemate"+param));
+		return param;
+	}
+	
+	public UserVO selectUserByshalizedEmail(String user_email) {
+		String email = shalize("tatemate"+user_email);
+		System.out.println(email);
+		return userDAO.selectUserByUserEmail(email);
+	}
+	
+	
+	
+	
+	
 	
 //modify user info
 	public int modifyUser(UserVO userVO, UserCharacterVO userCharacterVO, HttpSession session, HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {

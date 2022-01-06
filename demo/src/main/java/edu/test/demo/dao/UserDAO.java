@@ -16,6 +16,10 @@ public interface UserDAO {
 	public UserVO selectUserByUserId(int user_id);		//userVO by user id
 	public UserVO selectUserByUserEmail(String user_email);		//userVO by user id
 	public int insertUser(UserVO vo);					//insert
+	
+	//new join logic(insert tmp user)
+	public int insertTmpUser(UserVO vo);
+	
 	public UserVO selectUserLogin(Map<String, String> id_pass);//login check
 	public int modifyUser(UserVO vo);		//modify user
 	public UserVO emailCheck(String email);			//	email check

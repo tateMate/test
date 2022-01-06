@@ -24,6 +24,21 @@
 		INSERT INTO user(user_pet,user_intro,user_ideal,user_location,user_sns,user_email,user_pw,user_nickname,user_gender,user_nationality,user_age,user_smoking,user_vaccine,user_room,user_matching,user_profile)
 		VALUES(#{user_pet},#{user_intro},#{user_ideal},#{user_location},#{user_sns},#{user_email},#{user_pw},#{user_nickname},#{user_gender},#{user_nationality},#{user_age},#{user_smoking},#{user_vaccine},#{user_room},#{user_matching},#{user_profile})  
 	</insert>
+	
+	
+	
+	
+	
+<!-- 새로운 회원가입 로직 -->
+	<insert id="insertTmpUser" parameterType="UserVO">
+		INSERT INTO USER(USER_PW,USER_EMAIL,USER_NICKNAME,USER_GENDER,USER_NATIONALITY,USER_AGE,USER_SMOKING,USER_VACCINE,USER_ROOM,USER_MATCHING)
+		VALUES(#{user_pw},#{user_email},"TMPUSER",0,"TMPUSER",1,0,1,0,0)
+	</insert>
+	
+	
+	
+	
+	
 
 <!-- 로그인 체크 -->
 	<select id="selectUserLogin" resultType="UserVO" parameterType="map">

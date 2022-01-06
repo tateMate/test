@@ -21,24 +21,20 @@
 	<form id="joinform" role="form" method="post" enctype="multipart/form-data">
 		<div><table>
 			
-			<tr><td>*email:</td><td><input onchange="chkid()" required type="text" name="user_email" id="user_email">
+			<tr><td>*email:</td><td><input type="hidden" name="user_email" value="${user_email}">${user_email}</td></tr>
 				
-				
-			<tr><td></td><td id="rst"></td></tr>
-			
-			
 			
 			
 			<tr><td>*password:</td><td><input required type="password" name=user_pw></td></tr>
-			<tr><td>*nickname:</td><td><input required type="text"	value="test"	 name=user_nickname></td></tr>
-			<tr><td>*gender:</td><td><input required type="radio" value="0" name=user_gender	checked		>남
+			<tr><td>*nickname:</td><td><input required type="text" name=user_nickname></td></tr>
+			<tr><td>*gender:</td><td><input required type="radio" value="0" name=user_gender>남
 				<input type="radio" value="1" name=user_gender>여</td></tr>
-			<tr><td>*nationality:</td><td><input required type="text"	value="test"		 name=user_nationality></td></tr>
-			<tr><td>*age:</td><td><input required type="number"			value="12"	 name=user_age></td></tr>
-			<tr><td>*smoking:</td><td><input required type="radio" value="0" 	checked	name=user_smoking>비흡연
+			<tr><td>*nationality:</td><td><input required type="text" name=user_nationality></td></tr>
+			<tr><td>*age:</td><td><input required type="number"	name=user_age></td></tr>
+			<tr><td>*smoking:</td><td><input required type="radio" value="0" name=user_smoking>비흡연
 				<input type="radio" value="1" name=user_smoking>흡연</td></tr>
-			<tr><td>*vaccine:</td><td><input required type="number" name=user_vaccine	value=1		></td></tr>
-			<tr><td>*room:</td><td><input required type="radio"		checked	 	value="0" name=user_room onclick="nasi()">없음
+			<tr><td>*vaccine:</td><td><input required type="number" name=user_vaccine></td></tr>
+			<tr><td>*room:</td><td><input required type="radio" value="0" name=user_room onclick="nasi()">없음
 				<input type="radio" value="1" name=user_room onclick="ari()">있음</td></tr>
 			<tr><td>지역:</td><td><select name="addressRegion" id="addressRegion1"></select>
 		    <select name="addressDo" id="addressDo1"></select>
@@ -48,7 +44,7 @@
 		<!-- 		input location -->
 			
 			<tr><td></td><td id="room_des"></td></tr>
-			<tr><td>*matching:</td><td><input required type="radio" value="0"	checked	 name=user_matching>원하지 않음
+			<tr><td>*matching:</td><td><input required type="radio" value="0" name=user_matching>원하지 않음
 				<input type="radio" value="1" name=user_matching>원함</td></tr>
 			<tr><td>pet:</td><td><input type="radio" value="0" name=user_matching>있음
 				<input type="radio" value="1" name=user_matching>없음</td></tr>

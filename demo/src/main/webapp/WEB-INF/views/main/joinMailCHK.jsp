@@ -11,9 +11,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-/*
-css안할래
-	*/
 }
 hr{
 width: 100%;
@@ -29,6 +26,9 @@ width: 100%;
 	</form>
 	<div id="rst"></div>
 	<a href="http://localhost:8080/main">main으로</a>
+	<a href="http://localhost:8080/login">login</a>
+	<a href="http://localhost:8080/forgotPw">비밀번호 찾기</a>
+	
 	
 	
 	

@@ -205,7 +205,7 @@ public class TestController2 {
 		try {
 			userService.insertUser(vo, request, file);
 			userCharacterService.insertUserCharacter(characterVO);
-			userService.sendEmail(vo.getUser_email(), "join","garaurl");
+//			userService.sendEmail(vo.getUser_email(), "join","garaurl");
 			return "redirect:/login";
 		}catch (Exception e) {
 			model.addAttribute("msg",e);
@@ -221,9 +221,11 @@ public class TestController2 {
 	@PostMapping("/joinmail")
 	public String joinjoin(Model model, String user_email) {
 		try {
-			//userService.sendEmail(user_email, "join", "garaurl");
 			model.addAttribute("email", user_email);
-			return "main/success";
+			model.addAttribute("title", "이메일을 확인하여 회원가입을 마쳐주세요");
+			//userVo를 가라로 집어넣는다:pw=useremail,id=set.tmpPW
+			userService.insertTmpUser(user_email);
+			return "main/sendmail";
 		} catch (Exception e) {
 			model.addAttribute("msg",e);
 			return "main/fail";
@@ -231,9 +233,10 @@ public class TestController2 {
 	}
 	
 	//회원가입 페이지
-	@GetMapping("/modifyPw")
-	public String realjoin(String tmpPw, Model model) {
-		return "여기";
+	@GetMapping("/realjoin")
+	public String realjoin(String tatemate, Model model) {
+		model.addAttribute("user_email",userService.selectUserByshalizedEmail(tatemate).getUser_pw());
+		return "main/join";
 		/*
 		try {
 			UserVO user = userService.selectUserByUserPw(tmpPw);
@@ -241,6 +244,7 @@ public class TestController2 {
 				model.addAttribute("msg","링크가 만료되었습니다.");
 				return "main/fail";
 			}
+			//회원가입하는 페이지
 			model.addAttribute("user_email", user.getUser_email());
 			return "main/join";
 		} catch (Exception e) {
@@ -309,6 +313,7 @@ public class TestController2 {
 			}
 			userService.forgotPw(user.getUser_id());
 			model.addAttribute("email", user_email);	// ${email}로 비밀번호를 변경할 수 있는 링크를 보냈엉! 확인해라 엉엉!
+			model.addAttribute("title","비밀번호가 초기화되었으니 반드시 재설정 해주시기 바랍니다.");
 			return "main/sendmail";
 		} catch (Exception e) {
 			System.out.println(e);
