@@ -125,14 +125,11 @@ public class UserService {
 		vo.setUser_email(shalize("tatemate"+param));
 		userDAO.insertTmpUser(vo);
 		sendEmail(user_email, "join", "http://localhost:8080/realjoin?tatemate="+param);
-		System.out.println(param);
-		System.out.println(shalize("tatemate"+param));
 		return param;
 	}
 	
 	public UserVO selectUserByshalizedEmail(String user_email) {
 		String email = shalize("tatemate"+user_email);
-		System.out.println(email);
 		return userDAO.selectUserByUserEmail(email);
 	}
 	
@@ -144,20 +141,36 @@ public class UserService {
 //modify user info
 	public int modifyUser(UserVO userVO, UserCharacterVO userCharacterVO, HttpSession session, HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
 		userCharacterDAO.modifyUserCharacter(userCharacterVO);
-		if(file.getContentType().contains("octet-stream")) {
-			userVO.setUser_profile(((UserVO)session.getAttribute("user")).getUser_profile());
-		}
-		else {
-			String fileURL=request.getServletContext().getRealPath("IMG");
-			String uploadFileName=((UserVO)session.getAttribute("user")).getUser_email().replace(".","d").replace("@","at")+"."+file.getContentType().substring(file.getContentType().lastIndexOf("/")+1);
-			System.out.println(uploadFileName);
-			File destinationFile=new File(fileURL, uploadFileName);
-			file.transferTo(destinationFile);//upload
-			userVO.setUser_profile(uploadFileName);//upload�� ��θ� vo�� setting
+		if(session == null) {	//	join
+			if(file.getContentType().contains("octet-stream")) {
+				userVO.setUser_profile(null);
+			}else {
+				String fileURL=request.getServletContext().getRealPath("IMG");
+				String uploadFileName=userVO.getUser_email().replace(".","d").replace("@","at")+"."+file.getContentType().substring(file.getContentType().lastIndexOf("/")+1);
+				System.out.println(uploadFileName);
+				File destinationFile=new File(fileURL, uploadFileName);
+				file.transferTo(destinationFile);//upload
+				userVO.setUser_profile(uploadFileName);//upload�� ��θ� vo�� setting
+			}
+			modifyPw(userVO.getUser_email(), userVO.getUser_pw());
+		}else {		//modify
+			if(file.getContentType().contains("octet-stream")) {
+				userVO.setUser_profile(((UserVO)session.getAttribute("user")).getUser_profile());
+			}
+			else {
+				String fileURL=request.getServletContext().getRealPath("IMG");
+				String uploadFileName=((UserVO)session.getAttribute("user")).getUser_email().replace(".","d").replace("@","at")+"."+file.getContentType().substring(file.getContentType().lastIndexOf("/")+1);
+				System.out.println(uploadFileName);
+				File destinationFile=new File(fileURL, uploadFileName);
+				file.transferTo(destinationFile);//upload
+				userVO.setUser_profile(uploadFileName);//upload�� ��θ� vo�� setting
+			}
 		}
 		int rst = userDAO.modifyUser(userVO);
-		session.setAttribute("user", userDAO.selectUserByUserId(userVO.getUser_id()));
-		session.setAttribute("userCharacter", userCharacterVO);
+		if(session != null) {
+			session.setAttribute("user", userDAO.selectUserByUserId(userVO.getUser_id()));
+			session.setAttribute("userCharacter", userCharacterVO);
+		}
 		return rst;
 	}
 	

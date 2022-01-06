@@ -18,13 +18,9 @@
 	<h1 style="display:inline-block;">회원가입</h1><button onclick="location.href='main'">메인으로</button>
 	<hr>
 <!-- 	user VO form  zone-->
-	<form id="joinform" role="form" method="post" enctype="multipart/form-data">
+	<form id="joinform" role="form" action="realjoin" method="post" enctype="multipart/form-data">
 		<div><table>
-			
-			<tr><td>*email:</td><td><input type="hidden" name="user_email" value="${user_email}">${user_email}</td></tr>
-				
-			
-			
+			<tr><td>*email:</td><td><input type="hidden" name="user_email" value="${user.user_pw}">${user.user_pw}<input type="hidden" name="user_id" value="${user.user_id}"></td></tr>
 			<tr><td>*password:</td><td><input required type="password" name=user_pw></td></tr>
 			<tr><td>*nickname:</td><td><input required type="text" name=user_nickname></td></tr>
 			<tr><td>*gender:</td><td><input required type="radio" value="0" name=user_gender>남
@@ -142,29 +138,6 @@
 		room_des.innerHTML="어느 지역을 원하시나요?";
 	}
 
-	function chkid(){
-		$.ajax({
-			url:"emailChk",
-			type:"post",
-			data:{user_email:user_email.value},
-  			dataType:"json",
-			success:function(d){
-				let userE = user_email.value;
-				if(d) {
-					rst.innerHTML="사용가능한 email입니다."
-					submitbtn.disabled="";
-					if(userE==""){
-						rst.innerHTML="email을 입력해주세요."
-						submitbtn.disabled="disabled";
-					}
-				}else {
-					rst.innerHTML="<em>중복된 email입니다.</em>"
-					submitbtn.disabled="disabled";
-					document.getElementById('user_email').style.color="red";
-				}
-			}
-		});
-	}
 	
 // 	api
 $(function(){

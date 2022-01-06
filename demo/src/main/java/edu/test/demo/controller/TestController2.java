@@ -200,18 +200,6 @@ public class TestController2 {
 	public String UserInsertGet() {
 		return "main/join";
 	}
-	@PostMapping("/join")
-	public String UserInsertPost(Model model, UserVO vo, UserCharacterVO characterVO, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
-		try {
-			userService.insertUser(vo, request, file);
-			userCharacterService.insertUserCharacter(characterVO);
-//			userService.sendEmail(vo.getUser_email(), "join","garaurl");
-			return "redirect:/login";
-		}catch (Exception e) {
-			model.addAttribute("msg",e);
-			return "main/fail";
-		}
-	}
 	
 	//new join logic
 	@GetMapping("/newjoin")
@@ -235,7 +223,7 @@ public class TestController2 {
 	//회원가입 페이지
 	@GetMapping("/realjoin")
 	public String realjoin(String tatemate, Model model) {
-		model.addAttribute("user_email",userService.selectUserByshalizedEmail(tatemate).getUser_pw());
+		model.addAttribute("user",userService.selectUserByshalizedEmail(tatemate));
 		return "main/join";
 		/*
 		try {
@@ -255,6 +243,17 @@ public class TestController2 {
 		*/
 	}
 	
+	@PostMapping("/realjoin")
+	public String UserInsertPost(Model model, UserVO vo, UserCharacterVO characterVO, HttpServletRequest request, @RequestParam(value="file") MultipartFile file) throws IllegalStateException, IOException {
+		try {
+			userService.modifyUser(vo, characterVO, null, request, file);
+			userCharacterService.insertUserCharacter(characterVO);
+			return "redirect:/login";
+		}catch (Exception e) {
+			model.addAttribute("msg",e);
+			return "main/fail";
+		}
+	}
 	
 	
 	
