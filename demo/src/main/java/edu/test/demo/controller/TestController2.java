@@ -200,6 +200,20 @@ public class TestController2 {
 	public String newjoin() {
 		return "main/joinMailCHK";
 	}
+	
+	//로딩 페이지
+	@PostMapping("/loadingPage")
+	public String joinLoading(Model model, String user_email) {
+		try {
+			model.addAttribute("email", user_email);
+			return "main/loadingPage";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg",e);
+			return "main/fail";
+		}
+	}
+	
 	@PostMapping("/joinmail")
 	public String joinjoin(Model model, String user_email) {
 		try {

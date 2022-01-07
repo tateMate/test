@@ -20,7 +20,7 @@ width: 100%;
 <body>
 	<h1>NEW JOIN LOGIC</h1>
 	<hr>
-	<form action="joinmail" method="post">
+	<form action="loadingPage" method="post">
 		<label>이메일 : </label> <input id="user_email" type="email" name="user_email" onchange="chkid()" required="required">
 		<input type="submit" value="입력" id="submitbtn">
 	</form>
